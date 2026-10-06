@@ -30,42 +30,64 @@
 
 ---
 
-## PHASE 1: XÁC ĐỊNH CORE ACTION (CORE ACTION CARD)
+## PHASE 1: CORE ACTION (15 PHÚT)
 
-### 1. Bảng sàng lọc và phân loại các ứng viên hành vi
+### 1. Phân biệt bốn khái niệm (5 phút)
 
-| Ứng viên hành vi | Phân loại bản chất | Đánh giá | Quyết định |
-| :--- | :--- | :--- | :--- |
-| **1. Đăng nhập / Mở ứng dụng** | UI / Session Action | Chỉ là thao tác mở app, chưa hề chạm vào bất kỳ giá trị học tập nào. | ❌ Loại |
-| **2. Tải lên tệp tài liệu (PDF/Slide)** | Input Action | Điều kiện cần, nhưng user mới chỉ đưa dữ liệu vào, chưa thu nhận được giá trị. | ❌ Loại |
-| **3. AI tạo đề thi thành công** | System Output | Đây là hành động của hệ thống AI, không phải hành vi tiếp nhận giá trị của người dùng. | ❌ Loại |
-| **4. Bấm nút "Bắt đầu làm bài"** | Intent Action | Ý định bắt đầu, chưa chứng minh người dùng đã học và tiếp thu kiến thức. | ❌ Loại |
-| **5. Hoàn thành trọn vẹn 1 phiên luyện đề ôn thi (Quiz Session) với điểm số $\ge 70\%$** | **Core Value Event (User Core Action)** | **Người dùng thực sự bỏ thời gian tư duy, trả lời câu hỏi và kiểm tra độ hiểu bài thành công.** |  **CHỌN LÀM CORE ACTION** |
+| Khái niệm | Câu hỏi trọng tâm | Áp dụng vào StudyMate AI |
+| :--- | :--- | :--- |
+| **Core Job** | User đang cố hoàn thành việc gì? | Nắm vững trọng tâm tài liệu học tập và tự tin vượt qua bài kiểm tra/kỳ thi sắp tới. |
+| **Core Action** | User làm gì trong sản phẩm để tiến tới giá trị? | Trả lời và nộp bài luyện đề trắc nghiệm/flashcard từ tài liệu học tập. |
+| **Core Value** | User nhận được lợi ích gì? | Biết chính xác lỗ hổng kiến thức, hiểu cách giải đúng và an tâm nắm vững bài học. |
+| **Core Value Event** | Sự kiện nào chứng minh value đã xảy ra? | `quiz_completed` với `score >= 70%` (hoặc hoàn tất xem giải thích câu sai). |
 
-### 2. Core Action Card
+> **Ghi chú phân biệt**: `AI tạo đề thi` chỉ là **System Output**, `Bấm bắt đầu` là **Thao tác UI**, chỉ khi người dùng hoàn thành và nộp bài kiểm tra thì mới là **Core Action** xác nhận đã thu nhận giá trị.
 
-```
-┌────────────────────────────────────────────────────────────────────────────────────────┐
-│                                   CORE ACTION CARD                                     │
-├────────────────────────────────────────────────────────────────────────────────────────┤
-│ Tên Core Action:                                                                       │
-│   "Hoàn thành phiên luyện đề ôn tập môn học đạt chuẩn (Completed Qualified Quiz Session)"│
-│                                                                                        │
-│ Cú pháp chuẩn hóa:                                                                     │
-│   [Sinh viên] thực hiện [Làm và nộp bài kiểm tra trắc nghiệm/flashcard tối thiểu 5 câu]│
-│   trên [Bộ đề do AI tạo từ tài liệu học tập]                                          │
-│   để đạt được [Điểm số >= 70% hoặc hoàn thành 100% việc giải thích lỗi sai].           │
-│                                                                                        │
-│ Bằng chứng giá trị (Proof of Value):                                                   │
-│   - Người dùng đã hoàn thành việc ôn luyện kiến thức (Active Learning).               │
-│   - Hệ thống trả về kết quả đánh giá điểm mạnh/yếu tức thì kèm giải thích chi tiết.   │
-└────────────────────────────────────────────────────────────────────────────────────────┘
-```
+---
 
-### 3. Gate 1: Tự kiểm tra (Pass Gate 1)
-- [x] **Không phải thao tác UI/Onboarding**: Hoàn toàn là hành vi học tập có chủ đích.
-- [x] **Không phải System Output**: Là tương tác 2 chiều nơi sinh viên trực tiếp tư duy và làm bài.
-- [x] **Gần nhất với Core Value**: Đạt điểm $\ge 70\%$ là bằng chứng rõ ràng nhất cho thấy sinh viên đã nắm được bài học.
+### 2. Điền Core Action Card (10 phút)
+
+| Thành phần | Câu trả lời chi tiết cho StudyMate AI |
+| :--- | :--- |
+| **Target user** | Sinh viên Đại học (Năm 1 – 4) cần ôn tập kiến thức môn học trước buổi lên lớp hoặc trước kỳ thi. |
+| **Core job** | Nắm bắt trọng tâm tài liệu ôn thi và kiểm tra mức độ hiểu bài thực tế trong thời gian ngắn. |
+| **Core action** | Hoàn thành và nộp bài phiên luyện đề trắc nghiệm/flashcard ôn thi (Qualified Quiz Session). |
+| **Object** | Bộ câu hỏi kiểm tra kiến thức được AI trích xuất và tạo từ tài liệu học tập (Slide, PDF, Giáo trình). |
+| **Preconditions** | Tài liệu học tập đã được tải lên và AI đã xử lý tạo bộ đề thi thành công. |
+| **Completion rule** | Người dùng trả lời đủ 100% số câu hỏi trong phiên (tối thiểu 5 câu) và bấm nút **"Nộp bài & Xem kết quả"**. |
+| **Core value** | Kiểm chứng ngay lập tức mức độ nắm bài, giải tỏa lo lắng thi cử và biết rõ điểm yếu cần bổ sung. |
+| **Evidence of value** | Điểm số bài làm đạt $\ge 70\%$ HOẶC người dùng hoàn thành xem 100% giải thích chi tiết các câu trả lời sai. |
+| **Candidate event** | `quiz_completed` (với các thuộc tính: `user_id`, `quiz_id`, `score_percent`, `is_qualified: true/false`). |
+
+---
+
+### 3. Tự kiểm 5 tiêu chí (Self-Audit 5 Criteria)
+
+| Tiêu chí tự kiểm | Câu hỏi đánh giá | Kết quả chấm | Minh chứng & Lập luận |
+| :---: | :--- | :---: | :--- |
+| **1. Gần core value** | Hành vi xảy ra là user đã tiến gần rõ rệt tới value chưa? | **ĐẠT (Pass)** | Khi nộp bài và xem bảng điểm/lời giải, sinh viên đã hoàn thành chu trình ôn luyện và kiểm tra kiến thức. |
+| **2. Có thể lặp lại** | Hành vi có xuất hiện lại khi nhu cầu quay lại không? | **ĐẠT (Pass)** | Có. Mỗi khi có bài học mới trong tuần hoặc bước vào đợt thi mới, sinh viên lại tiếp tục mở đề luyện tập. |
+| **3. Có thể quan sát** | Bạn biết chính xác khi nào nó hoàn tất không? | **ĐẠT (Pass)** | Biết chính xác 100% tại thời điểm sinh viên gửi request nộp bài (`quiz_completed`) lên server. |
+| **4. Có ý nghĩa** | Hành vi tăng có thật sự nghĩa là sản phẩm tốt hơn không? | **ĐẠT (Pass)** | Có. Số lượt hoàn thành bài quiz tăng đồng nghĩa với việc sinh viên thực sự học và ôn tập nhiều hơn qua app. |
+| **5. Có thể tác động** | Team có thể cải thiện khả năng nó xảy ra không? | **ĐẠT (Pass)** | Có. Team có thể tối ưu thuật toán tạo câu hỏi sát đề cương hơn, giảm độ dài quiz xuống 5 phút, thêm giải thích trực quan. |
+
+---
+
+### 4. Giải thích vì sao không phải "Mở app", "Đăng nhập" hay "Hỏi AI"
+
+* **Vì sao không chọn "Mở app" / "Đăng nhập"?**  
+  Đây thuần túy là **thao tác giao diện (UI interaction / Session start)**. Người dùng mở app rồi tắt ngay hoặc chỉ đăng nhập để đó hoàn toàn chưa nhận được bất kỳ giá trị học tập nào.
+* **Vì sao không chọn "Hỏi AI" hay "AI tạo đề thi thành công"?**  
+  - "Hỏi AI" là hành vi đầu vào (Input/Prompt) rất mơ hồ, chưa đo lường được kết quả.
+  - "AI tạo đề thi" là **System Output** (hệ thống hoàn thành xử lý), chưa chứng minh được sinh viên đã đọc, đã học và đã hiểu kiến thức đó.
+
+---
+
+### 5. GATE 1 — CORE ACTION ĐỨNG VỮNG
+- [x] **Đủ cấu trúc**: Có Actor (*Sinh viên*), Object (*Bộ đề từ tài liệu*), Completion Rule (*Nộp bài & nhận kết quả*).
+- [x] **Vượt qua 5/5 tiêu chí tự kiểm**: Đạt tuyệt đối 5/5 tiêu chí (Gần core value, Lặp lại, Quan sát, Có ý nghĩa, Tác động được).
+- [x] **Phân biệt rạch ròi**: Giải thích rõ ràng vì sao loại bỏ UI click và System Output để chọn hành vi tạo giá trị thực.
+- **KẾT LUẬN: ĐỦ ĐIỀU KIỆN QUA GATE 1 ĐỂ SANG PHASE 2.**
 
 ---
 

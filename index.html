@@ -496,69 +496,160 @@
       <div class="phase-header">
         <div class="phase-title-wrap">
           <span class="phase-pill">Phase 1</span>
-          <h2 class="phase-title">Xác Định Core Action (Core Action Card)</h2>
+          <h2 class="phase-title">Core Action (15 phút)</h2>
         </div>
         <div class="time-badge"><i class="fa-regular fa-clock"></i> 15 phút</div>
       </div>
 
-      <p style="color: var(--text-muted); margin-bottom: 1rem;">Phân tích các ứng viên hành vi để tách bạch giữa Thao tác UI, Output của AI và Hành vi nhận giá trị cốt lõi của Người dùng:</p>
-
+      <!-- 1. Phân biệt 4 khái niệm -->
+      <h3 style="font-size: 1.1rem; color: var(--primary-light); margin-bottom: 0.75rem;"><i class="fa-solid fa-list-check"></i> 1. Phân biệt bốn khái niệm (5 phút)</h3>
       <div class="table-container">
         <table>
           <thead>
             <tr>
-              <th>Ứng viên hành vi</th>
-              <th>Phân loại bản chất</th>
-              <th>Đánh giá giá trị</th>
-              <th>Quyết định</th>
+              <th>Khái niệm</th>
+              <th>Câu hỏi trọng tâm</th>
+              <th>Ví dụ áp dụng vào StudyMate AI</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td><strong>1. Đăng nhập / Mở ứng dụng</strong></td>
-              <td><span class="tag tag-warning">UI / Session</span></td>
-              <td>Chỉ mở app, chưa hề chạm vào bất kỳ giá trị học tập nào.</td>
-              <td><span class="tag tag-danger">Loại ❌</span></td>
+              <td><strong>Core job</strong></td>
+              <td>User đang cố hoàn thành việc gì?</td>
+              <td>Nắm vững trọng tâm tài liệu và tự tin vượt qua kỳ thi sắp tới.</td>
             </tr>
             <tr>
-              <td><strong>2. Tải lên tệp PDF/Slide bài giảng</strong></td>
-              <td><span class="tag tag-warning">Input Action</span></td>
-              <td>Điều kiện cần, nhưng mới chỉ nạp dữ liệu, chưa nhận giá trị.</td>
-              <td><span class="tag tag-danger">Loại ❌</span></td>
+              <td><strong>Core action</strong></td>
+              <td>User làm gì trong sản phẩm để tiến tới giá trị?</td>
+              <td>Trả lời và nộp bài luyện đề trắc nghiệm/flashcard từ tài liệu học tập.</td>
             </tr>
             <tr>
-              <td><strong>3. AI tạo xong bộ đề trắc nghiệm</strong></td>
-              <td><span class="tag tag-primary">System Output</span></td>
-              <td>Hệ thống làm việc, chưa chứng minh sinh viên đã học.</td>
-              <td><span class="tag tag-danger">Loại ❌</span></td>
+              <td><strong>Core value</strong></td>
+              <td>User nhận được lợi ích gì?</td>
+              <td>Biết chính xác lỗ hổng kiến thức, hiểu cách giải đúng, an tâm đi thi.</td>
             </tr>
             <tr>
-              <td><strong>4. Hoàn thành phiên luyện đề (Quiz) đạt $\ge 70\%$ điểm</strong></td>
-              <td><span class="tag tag-success">Core Value Event</span></td>
-              <td>Sinh viên trực tiếp tư duy, làm bài và kiểm chứng mức độ hiểu bài.</td>
-              <td><span class="tag tag-success">CHỌN LÀM CORE ACTION </span></td>
+              <td><strong>Core value event</strong></td>
+              <td>Sự kiện nào chứng minh value đã xảy ra?</td>
+              <td><code>quiz_completed</code> với <code>score &ge; 70%</code> (hoặc hoàn tất xem giải thích câu sai).</td>
             </tr>
           </tbody>
         </table>
       </div>
 
-      <!-- Core Action Card Box -->
-      <div class="core-action-box">
-        <div style="display: flex; align-items: center; gap: 8px; color: var(--success); font-weight: 700; margin-bottom: 8px;">
-          <i class="fa-solid fa-award"></i> CORE ACTION CARD CHUẨN HÓA
-        </div>
-        <h3 style="font-size: 1.15rem; margin-bottom: 8px;">"Hoàn thành phiên luyện đề ôn tập môn học đạt chuẩn (Qualified Quiz Completion)"</h3>
-        <p style="font-size: 0.95rem; color: #cbd5e1;">
-          <strong>Cú pháp chuẩn:</strong> <code>[Sinh viên]</code> thực hiện <code>[Làm và nộp bài kiểm tra trắc nghiệm tối thiểu 5 câu]</code> trên <code>[Bộ đề do AI tạo từ tài liệu học tập]</code> để đạt được <code>[Điểm số >= 70% hoặc hoàn thành 100% việc xem giải thích lỗi sai]</code>.
-        </p>
+      <!-- 2. Điền Core Action Card -->
+      <h3 style="font-size: 1.1rem; color: var(--primary-light); margin: 1.5rem 0 0.75rem;"><i class="fa-solid fa-id-card"></i> 2. Core Action Card (10 phút)</h3>
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th style="width: 25%;">Thành phần</th>
+              <th>Câu trả lời chi tiết cho StudyMate AI</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Target user</strong></td>
+              <td>Sinh viên Đại học (Năm 1 – 4) cần ôn tập kiến thức môn học trước buổi lên lớp hoặc trước kỳ thi.</td>
+            </tr>
+            <tr>
+              <td><strong>Core job</strong></td>
+              <td>Nắm bắt trọng tâm tài liệu ôn thi và kiểm tra mức độ hiểu bài thực tế trong thời gian ngắn.</td>
+            </tr>
+            <tr>
+              <td><strong>Core action</strong></td>
+              <td>Hoàn thành và nộp bài phiên luyện đề trắc nghiệm/flashcard ôn thi (Qualified Quiz Session).</td>
+            </tr>
+            <tr>
+              <td><strong>Object</strong></td>
+              <td>Bộ câu hỏi kiểm tra kiến thức được AI trích xuất và tạo từ tài liệu học tập (Slide, PDF, Giáo trình).</td>
+            </tr>
+            <tr>
+              <td><strong>Preconditions</strong></td>
+              <td>Tài liệu học tập đã được tải lên và AI đã xử lý tạo bộ đề thi thành công.</td>
+            </tr>
+            <tr>
+              <td><strong>Completion rule</strong></td>
+              <td>Người dùng trả lời đủ 100% số câu hỏi trong phiên (tối thiểu 5 câu) và bấm nút <strong>"Nộp bài & Xem kết quả"</strong>.</td>
+            </tr>
+            <tr>
+              <td><strong>Core value</strong></td>
+              <td>Kiểm chứng ngay lập tức mức độ nắm bài, giải tỏa lo lắng thi cử và biết rõ điểm yếu cần bổ sung.</td>
+            </tr>
+            <tr>
+              <td><strong>Evidence of value</strong></td>
+              <td>Điểm số bài làm đạt $\ge 70\%$ HOẶC người dùng hoàn thành xem 100% giải thích chi tiết các câu trả lời sai.</td>
+            </tr>
+            <tr>
+              <td><strong>Candidate event</strong></td>
+              <td><code>quiz_completed</code> (với properties: <code>user_id, quiz_id, score_percent, is_qualified: true/false</code>).</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- 3. Tự kiểm 5 tiêu chí -->
+      <h3 style="font-size: 1.1rem; color: var(--primary-light); margin: 1.5rem 0 0.75rem;"><i class="fa-solid fa-scale-balanced"></i> 3. Tự kiểm 5 tiêu chí (Self-Audit 5 Criteria)</h3>
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Tiêu chí tự kiểm</th>
+              <th>Câu hỏi đánh giá</th>
+              <th>Kết quả</th>
+              <th>Minh chứng & Lập luận</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>1. Gần core value</strong></td>
+              <td>Hành vi xảy ra là user đã tiến gần rõ rệt tới value chưa?</td>
+              <td><span class="tag tag-success">ĐẠT (Pass)</span></td>
+              <td>Khi nộp bài và xem bảng điểm/lời giải, sinh viên đã hoàn thành chu trình ôn luyện và kiểm tra kiến thức.</td>
+            </tr>
+            <tr>
+              <td><strong>2. Có thể lặp lại</strong></td>
+              <td>Hành vi có xuất hiện lại khi nhu cầu quay lại không?</td>
+              <td><span class="tag tag-success">ĐẠT (Pass)</span></td>
+              <td>Có. Mỗi khi có bài học mới trong tuần hoặc bước vào đợt thi mới, sinh viên lại tiếp tục mở đề luyện tập.</td>
+            </tr>
+            <tr>
+              <td><strong>3. Có thể quan sát</strong></td>
+              <td>Bạn biết chính xác khi nào nó hoàn tất không?</td>
+              <td><span class="tag tag-success">ĐẠT (Pass)</span></td>
+              <td>Biết chính xác 100% tại thời điểm sinh viên gửi request nộp bài (<code>quiz_completed</code>) lên server.</td>
+            </tr>
+            <tr>
+              <td><strong>4. Có ý nghĩa</strong></td>
+              <td>Hành vi tăng có thật sự nghĩa là sản phẩm tốt hơn không?</td>
+              <td><span class="tag tag-success">ĐẠT (Pass)</span></td>
+              <td>Có. Số lượt hoàn thành bài quiz tăng đồng nghĩa với việc sinh viên thực sự học và ôn tập nhiều hơn qua app.</td>
+            </tr>
+            <tr>
+              <td><strong>5. Có thể tác động</strong></td>
+              <td>Team có thể cải thiện khả năng nó xảy ra không?</td>
+              <td><span class="tag tag-success">ĐẠT (Pass)</span></td>
+              <td>Có. Team có thể tối ưu thuật toán tạo câu hỏi sát đề cương hơn, giảm độ dài quiz xuống 5 phút, thêm giải thích trực quan.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Giải thích vì sao không chọn UI Click / System Output -->
+      <div class="card" style="margin-top: 1.25rem;">
+        <div class="card-title" style="color: var(--warning);"><i class="fa-solid fa-triangle-exclamation"></i> Vì sao không phải "Mở app", "Đăng nhập" hay "Hỏi AI"?</div>
+        <ul style="margin-left: 20px; font-size: 0.9rem; color: #cbd5e1;">
+          <li><strong>"Mở app" / "Đăng nhập":</strong> Thuần túy là thao tác UI, người dùng mở app rồi tắt ngay chưa nhận được bất kỳ giá trị học tập nào.</li>
+          <li><strong>"Hỏi AI" / "AI tạo đề thi":</strong> Là System Output (hệ thống làm việc) hoặc Input đơn thuần, chưa chứng minh sinh viên đã đọc và hiểu kiến thức.</li>
+        </ul>
       </div>
 
       <!-- Gate 1 -->
       <div class="gate-box">
-        <div class="gate-header"><i class="fa-solid fa-square-check"></i> GATE 1: KIỂM TRA ĐIỀU KIỆN CORE ACTION</div>
-        <div class="gate-item"><i class="fa-solid fa-check"></i> <span>Không phải thao tác UI / Onboarding / Login (Hành động học tập thực tế).</span></div>
-        <div class="gate-item"><i class="fa-solid fa-check"></i> <span>Không phải System Output (Đòi hỏi tương tác và tư duy của người học).</span></div>
-        <div class="gate-item"><i class="fa-solid fa-check"></i> <span>Bằng chứng giá trị (Proof of Value) rõ ràng: Đạt $\ge 70\%$ chứng minh đã nắm được kiến thức.</span></div>
+        <div class="gate-header"><i class="fa-solid fa-square-check"></i> GATE 1: CORE ACTION ĐỨNG VỮNG (PASS GATE 1)</div>
+        <div class="gate-item"><i class="fa-solid fa-check"></i> <span>Có đủ cấu trúc: Actor (Sinh viên), Object (Bộ đề ôn thi), Completion rule (Nộp bài & nhận bảng điểm).</span></div>
+        <div class="gate-item"><i class="fa-solid fa-check"></i> <span>Vượt qua 5/5 tiêu chí tự kiểm (yêu cầu &ge; 4/5).</span></div>
+        <div class="gate-item"><i class="fa-solid fa-check"></i> <span>Giải thích thuyết phục vì sao loại bỏ UI click và System Output để chọn hành vi tạo giá trị thực.</span></div>
       </div>
     </section>
 
