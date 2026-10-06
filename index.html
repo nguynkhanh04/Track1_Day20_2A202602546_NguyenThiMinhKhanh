@@ -724,181 +724,204 @@
       <div class="phase-header">
         <div class="phase-title-wrap">
           <span class="phase-pill">Phase 3</span>
-          <h2 class="phase-title">Metric System + Retention (25 phút)</h2>
+          <h2 class="phase-title">Metric System & Retention Definition (25 phút)</h2>
         </div>
         <div class="time-badge"><i class="fa-regular fa-clock"></i> 25 phút</div>
       </div>
 
-      <!-- 1. Activation Metric -->
-      <h3 style="font-size: 1.1rem; color: var(--primary-light); margin-bottom: 0.75rem;"><i class="fa-solid fa-bolt-lightning"></i> 1. Activation Metric (5 phút)</h3>
-      <div class="table-container">
-        <table>
-          <thead>
-            <tr>
-              <th style="width: 25%;">Thành phần</th>
-              <th>Định nghĩa chuẩn cho StudyMate AI</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><strong>Start event</strong></td>
-              <td><code>user_signed_up</code>: Sinh viên hoàn tất tạo tài khoản thành công.</td>
-            </tr>
-            <tr>
-              <td><strong>Activation event</strong></td>
-              <td><code>first_quiz_completed</code> với <code>score &ge; 70%</code>: Lần đầu tiên submit bài kiểm tra đạt chuẩn (Aha moment).</td>
-            </tr>
-            <tr>
-              <td><strong>Time window</strong></td>
-              <td>Trong vòng <strong>48 giờ</strong> kể từ khi tạo tài khoản.</td>
-            </tr>
-            <tr>
-              <td><strong>Chỉ số & Công thức</strong></td>
-              <td><strong>48h 1st Qualified Quiz Rate</strong> = $\frac{\text{Số user mới làm 1st Quiz } \ge 70\% \le 48h}{\text{Tổng user đăng ký mới}} \times 100\%$</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <!-- 2. Engagement Metric -->
-      <h3 style="font-size: 1.1rem; color: var(--primary-light); margin: 1.5rem 0 0.75rem;"><i class="fa-solid fa-gauge-high"></i> 2. Engagement Metric (3 phút)</h3>
-      <div class="grid-2">
-        <div class="card">
-          <div class="card-title"><i class="fa-solid fa-arrows-rotate"></i> Góc đo 1: Frequency (Tần suất)</div>
-          <p><strong>Weekly Quiz Frequency per Active User:</strong></p>
-          <div class="metric-formula" style="margin: 8px 0;">Tổng số Qualified Quizzes / WAU trong tuần</div>
-          <p style="font-size: 0.85rem; color: var(--text-muted);">Đo mức độ hình thành thói quen ôn bài đều đặn hàng tuần của sinh viên (Target: &ge; 2.5 bài/tuần).</p>
-        </div>
-        <div class="card">
-          <div class="card-title"><i class="fa-solid fa-book-open-reader"></i> Góc đo 2: Depth (Độ sâu giá trị)</div>
-          <p><strong>Error Notebook Review Rate:</strong></p>
-          <div class="metric-formula" style="margin: 8px 0;">Số user rà soát câu sai / Tổng user có câu sai</div>
-          <p style="font-size: 0.85rem; color: var(--text-muted);">Đo mức độ học sâu, chủ động ôn lại lỗ hổng kiến thức thay vì chỉ làm bài chống đối.</p>
-        </div>
-      </div>
-
-      <!-- 3. Retention Definition -->
-      <h3 style="font-size: 1.1rem; color: var(--primary-light); margin: 1.5rem 0 0.75rem;"><i class="fa-solid fa-file-contract"></i> 3. Retention Definition (Đủ 6 thành phần) (7 phút)</h3>
-      <div class="table-container">
-        <table>
-          <thead>
-            <tr>
-              <th style="width: 20%;">Thành phần</th>
-              <th style="width: 25%;">Câu hỏi định hướng</th>
-              <th>Định nghĩa chi tiết cho StudyMate AI</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><strong>1. Unit</strong></td>
-              <td>Đối tượng được đếm là ai?</td>
-              <td><strong>User Account</strong> duy nhất (distinct <code>user_id</code> của sinh viên).</td>
-            </tr>
-            <tr>
-              <td><strong>2. Cohort entry</strong></td>
-              <td>Event nào đưa unit vào cohort?</td>
-              <td>Hoàn thành Activation (<code>first_quiz_completed</code> với <code>score &ge; 70%</code> trong 48h).</td>
-            </tr>
-            <tr>
-              <td><strong>3. Return event</strong></td>
-              <td>Core action nào phải lặp lại?</td>
-              <td><strong>Bắt buộc là Core Action:</strong> <code>quiz_completed</code> với <code>score &ge; 70%</code>. <em>(Tuyệt đối không dùng mở app)</em>.</td>
-            </tr>
-            <tr>
-              <td><strong>4. Window</strong></td>
-              <td>Khung thời gian đo là gì?</td>
-              <td><strong>Weekly Rolling Windows (W1, W2, W4, W8, W12)</strong> – Khung 7 ngày liên tiếp (khớp chuẩn Cadence Phase 2).</td>
-            </tr>
-            <tr>
-              <td><strong>5. Threshold</strong></td>
-              <td>Tần suất bao nhiêu trong window?</td>
-              <td>Tối thiểu <strong>&ge; 1 lần</strong> hoàn thành Qualified Quiz trong window 7 ngày đó.</td>
-            </tr>
-            <tr>
-              <td><strong>6. Segment</strong></td>
-              <td>Áp dụng phân tích cho ai?</td>
-              <td>Khối ngành (STEM vs Kinh tế); Loại gói (Free vs Pro); Kênh (Organic vs Mời qua Shared Link).</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <!-- Đối chiếu 3 mốc Retention -->
-      <div class="highlight-card" style="border-left: 4px solid var(--accent);">
-        <div style="font-weight: 700; color: var(--accent); margin-bottom: 6px;"><i class="fa-solid fa-ruler-combined"></i> Đối chiếu Retention với 3 mốc (S34 Framework)</div>
-        <ul style="margin-left: 20px; font-size: 0.88rem; color: #cbd5e1;">
-          <li><strong>Mốc 1 - Natural cycle:</strong> Weekly Cohorts (W1..W12) khớp 100% với độ dài 1 kỳ học đại học (12-15 tuần).</li>
-          <li><strong>Mốc 2 - Segment comparison:</strong> Segment học nhóm qua Shared Link dự kiến có retention cao hơn 30% so với nhóm tự học lẻ.</li>
-          <li><strong>Mốc 3 - Benchmark category:</strong> Tiêu chuẩn EdTech W4 Retention là 25-35%; StudyMate AI đặt mục tiêu <strong>35%</strong>.</li>
-        </ul>
-      </div>
-
-      <!-- 4. North Star Metric & Leading & Counter -->
-      <h3 style="font-size: 1.1rem; color: var(--primary-light); margin: 1.5rem 0 0.75rem;"><i class="fa-solid fa-star"></i> 4. North Star + Leading + Counter (10 phút)</h3>
-
-      <!-- North Star Metric Showcase -->
-      <div class="metric-hero">
-        <span class="tag tag-primary" style="margin-bottom: 6px;">NORTH STAR METRIC (NSM)</span>
-        <div class="metric-value">Weekly Qualified Quiz Completions (WQQC)</div>
-        <div class="metric-formula">WQQC = Tổng số Qualified Quiz hoàn thành (Điểm &ge; 70%) trong mỗi chu kỳ 7 ngày</div>
-        <p style="color: var(--text-muted); font-size: 0.85rem; margin-top: 8px;">
-          Gồm đủ 3 yếu tố: <strong>Unit of Value</strong> (Quiz session) + <strong>Quality Threshold</strong> (Score &ge; 70%) + <strong>Frequency</strong> (Weekly).
+      <!-- Khái niệm cốt lõi S26 -->
+      <div class="card" style="margin-bottom: 1.5rem; background: rgba(99, 102, 241, 0.08); border-left: 4px solid var(--primary);">
+        <div class="card-title" style="color: var(--primary-light);"><i class="fa-solid fa-lightbulb"></i> Nguyên lý cốt lõi (S26): Active &ne; Activated</div>
+        <p style="font-size: 0.9rem; color: #cbd5e1;">
+          <strong>Active:</strong> Chỉ đơn thuần là có mở/dùng app trong time window.<br/>
+          <strong>Activated:</strong> Đã thực hiện và nhận trọn vẹn <em>Core Action lần đầu</em> với tần suất và chất lượng đủ để xác suất ở lại sản phẩm cao hơn hẳn nhóm chưa activated.
         </p>
       </div>
 
-      <!-- Leading & Counter Table -->
-      <div class="table-container">
-        <table>
-          <thead>
-            <tr>
-              <th>Loại chỉ số</th>
-              <th>Tên chỉ số</th>
-              <th>Công thức / Định nghĩa</th>
-              <th>Vì sao dự báo / Bảo vệ chất lượng?</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><span class="tag tag-warning">Leading Indicator 1</span></td>
-              <td><strong>D0 Document Upload Rate</strong></td>
-              <td>% User mới tải tài liệu trong 2h đầu.</td>
-              <td>Có tài liệu là điều kiện tiên quyết để tạo đề; user upload ngay chứng tỏ nhu cầu cấp thiết và dễ activate gấp 3 lần.</td>
-            </tr>
-            <tr>
-              <td><span class="tag tag-warning">Leading Indicator 2</span></td>
-              <td><strong>AI Generation-to-Start Rate</strong></td>
-              <td>% Đề AI tạo được bấm làm bài trong 10 phút.</td>
-              <td>Đo lường độ hấp dẫn và mức độ liên quan của đề thi bám sát tài liệu.</td>
-            </tr>
-            <tr>
-              <td><span class="tag tag-warning">Leading Indicator 3</span></td>
-              <td><strong>Collaborative Quiz Share Rate</strong></td>
-              <td>% Sinh viên chia sẻ đề cho bạn bè sau khi làm xong.</td>
-              <td>Tạo động lực học nhóm (Peer learning), kéo cả nhóm bạn cùng lớp quay lại ôn tập hàng tuần.</td>
-            </tr>
-            <tr>
-              <td><span class="tag tag-danger">Counter-Metric 1</span></td>
-              <td><strong>Quiz Abandonment Rate</strong></td>
-              <td>% Phiên làm bài bị thoát trước 50% câu hỏi.</td>
-              <td>Cảnh báo đề quá dài, câu hỏi đánh đố quá mức hoặc UI gây ức chế.</td>
-            </tr>
-            <tr>
-              <td><span class="tag tag-danger">Counter-Metric 2</span></td>
-              <td><strong>AI Error / Hallucination Rate</strong></td>
-              <td>% Câu hỏi bị bấm báo lỗi (Trần: $\le 2\%$).</td>
-              <td>Bảo vệ uy tín học thuật; chống tình trạng AI sinh nhiều đề nhưng sai kiến thức.</td>
-            </tr>
-          </tbody>
-        </table>
+      <!-- 03 - METRIC SYSTEM -->
+      <div style="margin-bottom: 2rem;">
+        <h3 style="font-size: 1.25rem; color: var(--accent); margin-bottom: 1rem;"><i class="fa-solid fa-chart-pie"></i> 03 — METRIC SYSTEM (HỆ THỐNG CHỈ SỐ)</h3>
+
+        <!-- 1. Activation Metric -->
+        <h4 style="font-size: 1.05rem; color: var(--primary-light); margin-bottom: 0.75rem;"><i class="fa-solid fa-bolt-lightning"></i> 1. Activation Metric (5 phút)</h4>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 25%;">Thành phần cấu thành</th>
+                <th style="width: 25%;">Câu hỏi xác định</th>
+                <th>Định nghĩa chuẩn cho StudyMate AI</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Start event</strong></td>
+                <td>Khi nào user bắt đầu?</td>
+                <td><code>user_signed_up</code>: Sinh viên hoàn tất tạo tài khoản thành công.</td>
+              </tr>
+              <tr>
+                <td><strong>Activation event</strong></td>
+                <td>Event nào xác nhận core value đầu tiên?</td>
+                <td><code>first_quiz_completed</code> với <code>score &ge; 70%</code>: Lần đầu tiên submit bài kiểm tra đạt chuẩn (Aha moment & nhận first value).</td>
+              </tr>
+              <tr>
+                <td><strong>Time window</strong></td>
+                <td>Core action cần xảy ra trong bao lâu?</td>
+                <td>Trong vòng <strong>48 giờ</strong> kể từ thời điểm <code>user_signed_up</code>.</td>
+              </tr>
+              <tr>
+                <td><strong>Chỉ số & Công thức</strong></td>
+                <td>Tên & Công thức tính</td>
+                <td><strong>48h 1st Qualified Quiz Rate</strong> = $\frac{\text{Số user mới làm 1st Quiz } \ge 70\% \le 48h}{\text{Tổng user đăng ký mới trong kỳ}} \times 100\%$</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p style="font-size: 0.85rem; color: var(--warning); margin-top: 6px;"><i class="fa-solid fa-triangle-exclamation"></i> <em>Tránh lỗi kinh điển:</em> Tuyệt đối không dùng "Hoàn tất onboarding" hay "Đăng nhập lại" làm Activation vì user chưa chạm vào Core Value.</p>
+
+        <!-- 2. Engagement Metric -->
+        <h4 style="font-size: 1.05rem; color: var(--primary-light); margin: 1.5rem 0 0.75rem;"><i class="fa-solid fa-gauge-high"></i> 2. Engagement Metric (3 phút)</h4>
+        <div class="grid-2">
+          <div class="card">
+            <div class="card-title"><i class="fa-solid fa-arrows-rotate"></i> Góc đo 1: Frequency (Tần suất theo Cadence)</div>
+            <p><strong>Weekly Quiz Frequency per Active User:</strong></p>
+            <div class="metric-formula" style="margin: 8px 0;">Tổng số Qualified Quizzes / WAU trong tuần</div>
+            <p style="font-size: 0.85rem; color: var(--text-muted);">Đo mức độ hình thành thói quen ôn bài đều đặn hàng tuần của sinh viên (Target: &ge; 2.5 bài/tuần).</p>
+          </div>
+          <div class="card">
+            <div class="card-title"><i class="fa-solid fa-book-open-reader"></i> Góc đo 2: Depth (Độ sâu giá trị)</div>
+            <p><strong>Error Notebook Review Rate:</strong></p>
+            <div class="metric-formula" style="margin: 8px 0;">Số user rà soát câu sai / Tổng user có câu sai</div>
+            <p style="font-size: 0.85rem; color: var(--text-muted);">Đo mức độ học sâu, chủ động ôn lại lỗ hổng kiến thức thay vì chỉ làm bài chống đối.</p>
+          </div>
+        </div>
+
+        <!-- 3. North Star Metric & Leading & Counter -->
+        <h4 style="font-size: 1.05rem; color: var(--primary-light); margin: 1.5rem 0 0.75rem;"><i class="fa-solid fa-star"></i> 3. North Star Metric + Leading Indicators + Counter-Metrics (10 phút)</h4>
+
+        <!-- North Star Metric Showcase -->
+        <div class="metric-hero">
+          <span class="tag tag-primary" style="margin-bottom: 6px;">NORTH STAR METRIC (NSM) — CÔNG THỨC 3 THÀNH PHẦN</span>
+          <div class="metric-value">Weekly Qualified Quiz Completions (WQQC)</div>
+          <div class="metric-formula">WQQC = Tổng số Qualified Quiz hoàn thành (Điểm &ge; 70% hoặc xem 100% giải thích) trong mỗi chu kỳ 7 ngày</div>
+          <p style="color: var(--text-muted); font-size: 0.88rem; margin-top: 8px;">
+            Gồm đủ 3 yếu tố (S6–S9): <strong>Unit of Value</strong> (Quiz session hoàn tất) + <strong>Quality Threshold</strong> (Score &ge; 70%) + <strong>Frequency</strong> (Weekly).
+          </p>
+        </div>
+
+        <!-- Leading & Counter Table -->
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Loại chỉ số</th>
+                <th>Tên chỉ số</th>
+                <th>Công thức / Định nghĩa</th>
+                <th>Vì sao dự báo / Bảo vệ chất lượng?</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="tag tag-warning">Leading Indicator 1</span></td>
+                <td><strong>D0 Document Upload Rate</strong></td>
+                <td>% User mới tải tài liệu trong 2h đầu.</td>
+                <td>Có tài liệu là tiền đề bắt buộc để tạo đề; user upload ngay chứng tỏ nhu cầu thi cử cấp thiết và xác suất kích hoạt cao gấp 3 lần.</td>
+              </tr>
+              <tr>
+                <td><span class="tag tag-warning">Leading Indicator 2</span></td>
+                <td><strong>AI Generation-to-Start Rate</strong></td>
+                <td>% Đề AI tạo được bấm làm bài trong 10 phút.</td>
+                <td>Đo lường độ bám sát giáo trình và tính hấp dẫn của bộ đề do AI sinh ra.</td>
+              </tr>
+              <tr>
+                <td><span class="tag tag-warning">Leading Indicator 3</span></td>
+                <td><strong>Collaborative Quiz Share Rate</strong></td>
+                <td>% Sinh viên chia sẻ đề cho bạn bè sau khi làm xong.</td>
+                <td>Tạo động lực học nhóm (Peer learning), kéo bạn cùng lớp quay lại ôn tập hàng tuần.</td>
+              </tr>
+              <tr>
+                <td><span class="tag tag-danger">Counter-Metric 1</span></td>
+                <td><strong>Quiz Abandonment Rate</strong></td>
+                <td>% Phiên làm bài bị thoát trước 50% câu hỏi.</td>
+                <td>Cảnh báo đề quá dài, câu hỏi đánh đố phi lý hoặc UI gây ức chế.</td>
+              </tr>
+              <tr>
+                <td><span class="tag tag-danger">Counter-Metric 2</span></td>
+                <td><strong>AI Error / Hallucination Rate</strong></td>
+                <td>% Câu hỏi bị bấm báo lỗi (Trần an toàn: $\le 2\%$).</td>
+                <td>Bảo vệ uy tín học thuật; ngăn chặn thuật toán AI sinh đề hàng loạt nhưng nội dung sai lệch/ảo giác.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- 04 - RETENTION DEFINITION -->
+      <div>
+        <h3 style="font-size: 1.25rem; color: var(--accent); margin-bottom: 1rem;"><i class="fa-solid fa-file-contract"></i> 04 — RETENTION DEFINITION (HỢP ĐỒNG ĐỊNH NGHĨA RETENTION) (7 phút)</h3>
+        
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 20%;">Thành phần</th>
+                <th style="width: 25%;">Câu hỏi định hướng</th>
+                <th>Định nghĩa chi tiết cho StudyMate AI</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>1. Unit</strong></td>
+                <td>Đối tượng được đếm là ai?</td>
+                <td><strong>User Account</strong> duy nhất (distinct <code>user_id</code> của sinh viên).</td>
+              </tr>
+              <tr>
+                <td><strong>2. Cohort entry</strong></td>
+                <td>Event nào đưa unit vào cohort?</td>
+                <td>Hoàn thành hành vi Activation (<code>first_quiz_completed</code> với <code>score &ge; 70%</code> trong 48h).</td>
+              </tr>
+              <tr>
+                <td><strong>3. Return event</strong></td>
+                <td>Core action nào phải lặp lại?</td>
+                <td><strong>Bắt buộc là Core Action:</strong> <code>quiz_completed</code> với <code>score &ge; 70%</code>. <em>(Tuyệt đối không dùng mở app hay đăng nhập)</em>.</td>
+              </tr>
+              <tr>
+                <td><strong>4. Window</strong></td>
+                <td>Khung thời gian đo là gì?</td>
+                <td><strong>Weekly Rolling Windows (W1, W2, W3, W4, W8, W12)</strong> – Khung 7 ngày liên tiếp (khớp chuẩn 100% Cadence Phase 2).</td>
+              </tr>
+              <tr>
+                <td><strong>5. Threshold</strong></td>
+                <td>Tần suất bao nhiêu trong window?</td>
+                <td>Tối thiểu <strong>&ge; 1 lần</strong> hoàn thành Qualified Quiz trong window 7 ngày đó.</td>
+              </tr>
+              <tr>
+                <td><strong>6. Segment</strong></td>
+                <td>Áp dụng phân tích cho ai?</td>
+                <td>Khối ngành (STEM vs Kinh tế); Loại gói (Free vs Pro); Kênh (Organic vs Mời qua Shared Link).</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Đối chiếu 3 mốc Retention -->
+        <div class="highlight-card" style="border-left: 4px solid var(--accent); margin-top: 1rem;">
+          <div style="font-weight: 700; color: var(--accent); margin-bottom: 6px;"><i class="fa-solid fa-ruler-combined"></i> Đối chiếu Retention với 3 mốc (S34 Framework)</div>
+          <ul style="margin-left: 20px; font-size: 0.88rem; color: #cbd5e1;">
+            <li><strong>Mốc 1 - Natural cycle:</strong> Weekly Cohorts (W1..W12) khớp 100% với độ dài 1 kỳ học đại học (12-15 tuần).</li>
+            <li><strong>Mốc 2 - Segment comparison:</strong> Segment học nhóm qua Shared Link dự kiến có retention cao hơn 30% so với nhóm tự học lẻ.</li>
+            <li><strong>Mốc 3 - Benchmark category:</strong> Tiêu chuẩn EdTech W4 Retention là 25-35%; StudyMate AI đặt mục tiêu <strong>35%</strong>.</li>
+          </ul>
+        </div>
       </div>
 
       <!-- Gate 3 -->
-      <div class="gate-box">
+      <div class="gate-box" style="margin-top: 1.5rem;">
         <div class="gate-header"><i class="fa-solid fa-square-check"></i> GATE 3: METRIC TÍNH ĐƯỢC, RETENTION ĐỦ NGHĨA (PASS GATE 3)</div>
-        <div class="gate-item"><i class="fa-solid fa-check"></i> <span>Activation có Start Event, Activation Event và Time Window (48h).</span></div>
+        <div class="gate-item"><i class="fa-solid fa-check"></i> <span>Activation có Start Event (<code>user_signed_up</code>), Activation Event (<code>first_quiz_completed &ge; 70%</code>) và Time Window (48h).</span></div>
         <div class="gate-item"><i class="fa-solid fa-check"></i> <span>Retention đủ 6 thành phần, Return Event là Core Action thực tế và khớp Weekly Cadence.</span></div>
-        <div class="gate-item"><i class="fa-solid fa-check"></i> <span>NSM đúng công thức 3 thành phần (Unit + Quality + Frequency).</span></div>
-        <div class="gate-item"><i class="fa-solid fa-check"></i> <span>Có 3 Leading Indicators (có lập luận vì sao) và 2 Counter-metrics bảo vệ chất lượng AI.</span></div>
+        <div class="gate-item"><i class="fa-solid fa-check"></i> <span>NSM đúng công thức 3 thành phần (Unit of Value + Quality Threshold + Frequency).</span></div>
+        <div class="gate-item"><i class="fa-solid fa-check"></i> <span>Có 3 Leading Indicators (kèm lý giải vì sao) và 2 Counter-metrics bảo vệ chất lượng AI & chống gaming.</span></div>
       </div>
     </section>
 
@@ -907,111 +930,145 @@
       <div class="phase-header">
         <div class="phase-title-wrap">
           <span class="phase-pill">Phase 4</span>
-          <h2 class="phase-title">Product Loop & Minimum Tracking Spec</h2>
+          <h2 class="phase-title">Product Loop & Minimum Tracking Spec (15 phút)</h2>
         </div>
         <div class="time-badge"><i class="fa-regular fa-clock"></i> 15 phút</div>
       </div>
 
-      <!-- Diagram -->
-      <div class="mermaid-box">
-        <pre class="mermaid">
-        graph TD
-          subgraph "VÒNG LẶP 1: CÁ NHÂN HÓA HỌC TẬP (Habit Loop)"
-            T1["1. TRIGGER<br/>• Bên trong: Lo lắng trước kỳ thi<br/>• Bên ngoài: Thông báo nhắc ôn"] --> A1["2. ACTION (Core Action)<br/>Làm bài Quiz 5 phút"]
-            A1 --> R1["3. REWARD (Giá trị cốt lõi)<br/>Biết điểm + Giải thích chi tiết"]
-            R1 --> I1["4. INVESTMENT<br/>Lưu câu sai vào 'Sổ tay lỗi'<br/>Tối ưu hóa đề lần sau"]
-            I1 -.->|"Tạo trigger ôn tập mới"| T1
-          end
+      <!-- 05 - PRODUCT LOOP -->
+      <div style="margin-bottom: 2rem;">
+        <h3 style="font-size: 1.25rem; color: var(--accent); margin-bottom: 1rem;"><i class="fa-solid fa-repeat"></i> 05 — PRODUCT LOOP (THIẾT KẾ VÒNG LẶP SẢN PHẨM) (8 phút)</h3>
+        
+        <div class="card" style="margin-bottom: 1.25rem;">
+          <p><strong>Loại loop chính được chọn:</strong> <span class="tag tag-primary">Habit & Cumulative Progress Loop</span> (Vòng lặp thói quen & Tiến trình tích lũy) kết hợp <span class="tag tag-warning">Collaborative Growth Loop</span> (Vòng lặp lan tỏa nhóm học).</p>
+          <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 6px;"><em>Nguyên lý S36–43:</em> Loop được thiết kế để trực tiếp đẩy North Star WQQC & Retention, không dùng streak/badge/notification gượng ép.</p>
+        </div>
 
-          subgraph "VÒNG LẶP 2: LAN TỎA NHÓM HỌC (Growth Loop)"
-            R1 ==>|"Đề hay & sát thực tế"| A2["5. SHARE ACTION<br/>Chia sẻ đề cho bạn cùng lớp"]
-            A2 --> T2["6. PEER TRIGGER<br/>Bạn bè nhận link & thi thử"]
-            T2 --> A3["7. PEER ACTION<br/>Làm bài & Xem Bảng xếp hạng"]
-            A3 --> I2["8. PEER INVESTMENT<br/>Upload thêm đề vào kho chung"]
-            I2 -.->|"Làm giàu kho đề chung"| T1
-          end
-        </pre>
+        <!-- Diagram -->
+        <div class="mermaid-box">
+          <pre class="mermaid">
+          graph TD
+            subgraph "CHU KỲ 1: CÁ NHÂN HÓA HỌC TẬP (Habit & Cumulative Progress Loop)"
+              T1["1. NATURAL TRIGGER<br/>• Bên trong: Lo lắng trước bài kiểm tra tuần tới<br/>• Bên ngoài: Giảng viên phát slide/tài liệu mới"] --> A1["2. CORE ACTION<br/>Làm bài Quiz 5 phút từ slide (Score >= 70%)"]
+              A1 --> R1["3. IMMEDIATE VALUE<br/>Biết điểm + Giải thích chi tiết câu sai<br/>Giải tỏa âu lo, nắm chắc bài"]
+              R1 --> I1["4. SAVED STATE / INVESTMENT<br/>Lưu câu sai vào 'Sổ tay sửa lỗi'<br/>Hệ thống tích lũy lỗ hổng kiến thức"]
+              I1 -.->|"Tạo trigger tự nhiên cho tuần kế tiếp"| T2
+            end
+
+            subgraph "CHU KỲ 2: ÔN TẬP TIẾP DIỄN & LAN TỎA (Repeat & Collaborative Loop)"
+              T2["5. NEXT NATURAL TRIGGER<br/>Buổi học tuần mới hoặc chuẩn bị thi giữa kỳ<br/>+ Nhắc nhở từ kho câu sai đã lưu"] --> A2["6. NEXT CORE ACTION<br/>Làm đề ôn tập từ 'Sổ tay sửa lỗi'<br/>HOẶC Chia sẻ đề thi cho bạn cùng lớp"]
+              A2 --> R2["7. REPEAT VALUE<br/>Xóa sạch điểm yếu (Mastery)<br/>+ So tài điểm số trên Bảng xếp hạng nhóm"]
+              R2 --> I2["8. NETWORK INVESTMENT<br/>Bạn bè upload thêm đề vào kho chung<br/>Làm giàu kho học liệu cho cả nhóm"]
+              I2 -.->|"Kích hoạt chu kỳ học tập tiếp theo"| T1
+            end
+          </pre>
+        </div>
+
+        <!-- Reason to return -->
+        <div class="card" style="margin: 1.25rem 0; border-left: 4px solid var(--warning);">
+          <div class="card-title" style="color: var(--warning);"><i class="fa-solid fa-question-circle"></i> Phân tích "Reason to return" khi bỏ hoàn toàn Notification</div>
+          <p style="font-size: 0.88rem; color: #cbd5e1;">
+            Nếu tắt 100% push notifications, sinh viên vẫn quay lại StudyMate AI vì: (1) <strong>Internal Trigger:</strong> Áp lực điểm số môn học và lịch thi cử hàng tuần trên trường; (2) <strong>Stored Value (Investment):</strong> Toàn bộ các câu sai và bộ đề ôn tập đã được lưu trữ sẵn trong Sổ tay lỗi sai, giúp tiết kiệm thời gian ôn thi nước rút.
+          </p>
+        </div>
+
+        <!-- Metric Hypothesis -->
+        <div class="highlight-card" style="border-left: 4px solid var(--primary);">
+          <div style="font-weight: 700; color: var(--primary-light); margin-bottom: 6px;"><i class="fa-solid fa-flask"></i> METRIC HYPOTHESIS (GIẢ THUYẾT VÒNG LẶP — BẮT BUỘC 1 CÂU)</div>
+          <p style="font-style: italic; font-size: 0.95rem; color: #f1f5f9; line-height: 1.7;">
+            "Nếu vòng lặp <strong>'Ôn tập Sổ tay lỗi sai & Chia sẻ bộ đề nhóm' (Habit & Collaborative Loop)</strong> hoạt động hiệu quả, thì metric <strong>North Star Metric (Weekly Qualified Quiz Completions - WQQC)</strong> sẽ thay đổi theo hướng <strong>tăng từ 2.2 lên 3.8 lượt hoàn thành/user/tuần (+72%)</strong> đồng thời <strong>W4 Retention tăng từ 22% lên 35%</strong> trong <strong>60 ngày thử nghiệm</strong>, vì <strong>sinh viên tích lũy câu sai tạo ra lý do tự nhiên quay lại ôn tập và sự cạnh tranh điểm số trong nhóm lớp thúc đẩy bạn bè cùng học mà không cần phụ thuộc vào notification gượng ép</strong>."
+          </p>
+        </div>
       </div>
 
-      <!-- Metric Hypothesis -->
-      <div class="highlight-card" style="border-left: 4px solid var(--primary);">
-        <div style="font-weight: 700; color: var(--primary-light); margin-bottom: 6px;"><i class="fa-solid fa-flask"></i> METRIC HYPOTHESIS (GIẢ THUYẾT VÒNG LẶP)</div>
-        <p style="font-style: italic; font-size: 0.95rem; color: #f1f5f9;">
-          "Nếu chúng ta triển khai tính năng <strong>'Chia sẻ bộ đề thi thử kèm Bảng xếp hạng nhóm' (Collaborative Quiz Loop)</strong>, thì tỷ lệ <strong>W2 Retention</strong> của sinh viên thuộc nhóm học tập sẽ cao hơn nhóm học đơn lẻ ít nhất <strong>30%</strong>, đồng thời chỉ số <strong>North Star Metric (WQQC)</strong> trung bình trên mỗi người dùng sẽ tăng từ <strong>2.2 lên 3.8 lượt/tuần</strong> trong vòng 60 ngày."
-        </p>
-      </div>
+      <!-- 06 - TRACKING NHANH -->
+      <div>
+        <h3 style="font-size: 1.25rem; color: var(--accent); margin-bottom: 1rem;"><i class="fa-solid fa-satellite-dish"></i> 06 — TRACKING NHANH (MINIMUM TRACKING SPEC) (7 phút)</h3>
 
-      <!-- Tracking Spec Table -->
-      <div class="table-container">
-        <table>
-          <thead>
-            <tr>
-              <th>STT</th>
-              <th>Tên Event (<code>event_name</code>)</th>
-              <th>Trigger khi nào?</th>
-              <th>Parameters / Properties</th>
-              <th>Map về Metric nào?</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>1</td>
-              <td><code>user_signed_up</code></td>
-              <td>Đăng ký tài khoản thành công</td>
-              <td><code>user_id, signup_method, university</code></td>
-              <td>Mẫu số cho <strong>Activation Rate</strong></td>
-            </tr>
-            <tr>
-              <td>2</td>
-              <td><code>document_uploaded</code></td>
-              <td>Upload tệp tài liệu thành công</td>
-              <td><code>user_id, doc_id, file_type, page_count</code></td>
-              <td><strong>Leading Indicator 1</strong> (D0 Upload)</td>
-            </tr>
-            <tr>
-              <td>3</td>
-              <td><code>quiz_generated</code></td>
-              <td>AI tạo bộ đề thi thành công</td>
-              <td><code>user_id, quiz_id, question_count</code></td>
-              <td>Đo năng lực và sẵn sàng của AI</td>
-            </tr>
-            <tr>
-              <td>4</td>
-              <td><code>quiz_started</code></td>
-              <td>Bấm "Bắt đầu làm bài"</td>
-              <td><code>user_id, quiz_id, source</code></td>
-              <td>Leading Indicator 2 & Mẫu số Drop-off</td>
-            </tr>
-            <tr>
-              <td>5</td>
-              <td><code>quiz_completed</code></td>
-              <td>Nộp bài và nhận kết quả</td>
-              <td><code>user_id, quiz_id, score_percent, is_qualified</code></td>
-              <td><span class="tag tag-success">CORE ACTION</span> $\rightarrow$ <strong>NSM, Retention, Activation</strong></td>
-            </tr>
-            <tr>
-              <td>6</td>
-              <td><code>quiz_shared</code></td>
-              <td>Bấm copy link/gửi cho bạn bè</td>
-              <td><code>user_id, quiz_id, platform</code></td>
-              <td>Đo lường <strong>Growth Loop (Viral)</strong></td>
-            </tr>
-            <tr>
-              <td>7</td>
-              <td><code>question_error_reported</code></td>
-              <td>Bấm báo lỗi câu hỏi AI</td>
-              <td><code>user_id, quiz_id, question_id, error_type</code></td>
-              <td><strong>Counter-Metric 2</strong> (Error Rate)</td>
-            </tr>
-          </tbody>
-        </table>
+        <!-- Tracking Spec Table (4 fields standard) -->
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 5%;">STT</th>
+                <th style="width: 20%;">Tên Event (<code>object_action</code>)</th>
+                <th style="width: 30%;">Ý nghĩa (Hành vi/Value — Điều đã xảy ra)</th>
+                <th style="width: 25%;">Thời điểm ghi nhận (Chính xác khi nào bắn?)</th>
+                <th>Metric sử dụng (Map về Phase 3)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>1</strong></td>
+                <td><code>user_signed_up</code></td>
+                <td>Sinh viên hoàn tất xác thực & tạo tài khoản mới thành công.</td>
+                <td>Bắn khi server trả về mã <code>201 Created</code> cho user mới.</td>
+                <td>Mẫu số cho <strong>Activation Rate</strong> & Cohort Size.</td>
+              </tr>
+              <tr>
+                <td><strong>2</strong></td>
+                <td><code>document_uploaded</code></td>
+                <td>Tệp slide/giáo trình được upload & parse trích xuất text thành công.</td>
+                <td>Bắn khi upload và parse hoàn tất (Status <code>200 OK</code>).</td>
+                <td><strong>Leading Indicator 1</strong> (D0 Document Upload).</td>
+              </tr>
+              <tr>
+                <td><strong>3</strong></td>
+                <td><code>quiz_generated</code></td>
+                <td>Hệ thống AI hoàn tất sinh bộ câu hỏi trắc nghiệm từ tài liệu.</td>
+                <td>Bắn khi bộ đề thi được ghi vào DB và sẵn sàng hiển thị.</td>
+                <td>Đo năng lực AI & Chuyển đổi sang làm bài.</td>
+              </tr>
+              <tr>
+                <td><strong>4</strong></td>
+                <td><code>quiz_started</code></td>
+                <td>Sinh viên bấm bắt đầu và hiển thị câu hỏi số 1 của phiên làm bài.</td>
+                <td>Bắn khi UI câu hỏi số 1 render thành công trên màn hình.</td>
+                <td><strong>Leading Indicator 2</strong> & Mẫu số <strong>Quiz Abandonment Rate</strong>.</td>
+              </tr>
+              <tr>
+                <td><strong>5</strong></td>
+                <td><code>quiz_completed</code></td>
+                <td>Sinh viên hoàn thành nộp bài làm và nhận bảng điểm tổng kết.</td>
+                <td>Bắn sau khi server chấm điểm và trả về kết quả thành công.</td>
+                <td><span class="tag tag-success">CORE ACTION</span> $\rightarrow$ <strong>NSM (WQQC), Activation, Retention</strong>.</td>
+              </tr>
+              <tr>
+                <td><strong>6</strong></td>
+                <td><code>quiz_shared</code></td>
+                <td>Sinh viên bấm copy link hoặc gửi đề thi thử cho bạn bè thành công.</td>
+                <td>Bắn khi hệ thống tạo link và copy vào clipboard thành công.</td>
+                <td><strong>Leading Indicator 3</strong> (Collaborative Quiz Share).</td>
+              </tr>
+              <tr>
+                <td><strong>7</strong></td>
+                <td><code>question_error_reported</code></td>
+                <td>Sinh viên bấm gửi báo cáo câu hỏi AI có nội dung sai/ảo giác.</td>
+                <td>Bắn khi phiếu phản hồi lỗi lưu thành công vào cơ sở dữ liệu.</td>
+                <td><strong>Counter-Metric 2</strong> (AI Error / Hallucination Rate).</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Acceptance Criteria -->
+        <div class="card" style="margin-top: 1.25rem;">
+          <div class="card-title" style="color: var(--success);"><i class="fa-solid fa-clipboard-check"></i> Tiêu chí nghiệm thu Tracking (Acceptance Criteria)</div>
+          <div style="font-size: 0.88rem; color: #cbd5e1; display: flex; flex-direction: column; gap: 8px; margin-top: 8px;">
+            <p><strong>1. Hành vi thật sự hoàn tất (Chống bắn sớm):</strong> Event <code>quiz_completed</code> chỉ được bắn khi toàn bộ bài nộp đã gửi lên server, server trả về mã <code>200 OK</code> kèm điểm số và lời giải. Tuyệt đối không bắn khi user mới bấm nút "Nộp bài".</p>
+            <p><strong>2. Chống ghi nhận trùng lặp (Idempotency check):</strong> Với mỗi cặp <code>user_id</code> và <code>quiz_id</code>, hệ thống chỉ ghi nhận 1 lần chuyển trạng thái sang <code>completed</code>. Tải lại trang (F5/Reload), mạng lag retry hay autosave không được tạo thêm event trùng.</p>
+            <p><strong>3. Loại trừ dữ liệu nội bộ:</strong> Toàn bộ event từ tài khoản kiểm thử nội bộ (<code>is_internal: true</code>) và bot tự động phải được lọc bỏ khỏi pipeline tính toán Metric.</p>
+          </div>
+        </div>
       </div>
 
       <!-- Gate 4 -->
-      <div class="gate-box">
-        <div class="gate-header"><i class="fa-solid fa-square-check"></i> GATE 4: KIỂM TRA TRACKING SPEC & LOOP</div>
-        <div class="gate-item"><i class="fa-solid fa-check"></i> <span>Mọi event đều map 1-1 về một chỉ số cụ thể trong hệ thống.</span></div>
-        <div class="gate-item"><i class="fa-solid fa-check"></i> <span>Có giả thuyết Metric Hypothesis định lượng rõ ràng.</span></div>
+      <div class="gate-box" style="margin-top: 1.5rem;">
+        <div class="gate-header"><i class="fa-solid fa-square-check"></i> GATE 4: LOOP NỐI METRIC, EVENT NỐI LOOP (PASS GATE 4)</div>
+        <div class="gate-item"><i class="fa-solid fa-check"></i> <span>Product Loop $\ge 2$ chu kỳ: Chu kỳ 1 (Cá nhân hóa & Tích lũy) nối liền Chu kỳ 2 (Ôn tập & Lan tỏa nhóm).</span></div>
+        <div class="gate-item"><i class="fa-solid fa-check"></i> <span>Có Metric Hypothesis chuẩn trỏ về North Star Metric (WQQC) và Retention ở Phase 3.</span></div>
+        <div class="gate-item"><i class="fa-solid fa-check"></i> <span>Bảng 7 Core Events với 4 trường tiêu chuẩn, mỗi event map 1-1 về chỉ số cụ thể.</span></div>
+        <div class="gate-item"><i class="fa-solid fa-check"></i> <span>Có đủ 3 tiêu chí nghiệm thu (Acceptance Criteria) xử lý triệt để các bẫy bắn sớm và trùng lặp.</span></div>
       </div>
     </section>
 
@@ -1020,76 +1077,106 @@
       <div class="phase-header">
         <div class="phase-title-wrap">
           <span class="phase-pill">Phase 5</span>
-          <h2 class="phase-title">Bảng Tự Soi Lỗi & AI Support Log</h2>
+          <h2 class="phase-title">Tự Soi Lỗi & Nộp Bài (Self-Audit) (10 phút)</h2>
         </div>
         <div class="time-badge"><i class="fa-regular fa-clock"></i> 10 phút</div>
       </div>
 
+      <!-- 07 - BẢNG ĐỐI CHIẾU 7 CÂU HỎI TỰ SOI LỖI -->
+      <h3 style="font-size: 1.25rem; color: var(--accent); margin-bottom: 1rem;"><i class="fa-solid fa-list-check"></i> 07 — BẢNG ĐỐI CHIẾU 7 CÂU HỎI TỰ SOI LỖI KINH ĐIỂN</h3>
       <div class="table-container">
         <table>
           <thead>
             <tr>
-              <th>9 Lỗi kinh điển trong bài Product Metrics</th>
-              <th>Trạng thái</th>
-              <th>Minh chứng cụ thể trong bài làm</th>
+              <th style="width: 5%;">STT</th>
+              <th style="width: 35%;">Câu hỏi tự soi lỗi</th>
+              <th style="width: 12%;">Trạng thái</th>
+              <th>Minh chứng & Lập luận chi tiết trong bài làm</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td>1. Chọn core action vì dễ track hoặc chọn output hệ thống</td>
-              <td><span class="tag tag-success">Đã tránh</span></td>
-              <td>Chọn người dùng làm bài đạt $\ge 70\%$ (`quiz_completed`), không chọn `quiz_generated`.</td>
+              <td><strong>1</strong></td>
+              <td><strong>Core action không phải thao tác giao diện hay output hệ thống?</strong></td>
+              <td><span class="tag tag-success">ĐẠT (Pass)</span></td>
+              <td>Loại bỏ <code>Mở app</code> (UI click) và <code>quiz_generated</code> (Output AI); chọn <code>quiz_completed</code> với <code>score &ge; 70%</code> (người dùng thật sự tư duy làm bài).</td>
             </tr>
             <tr>
-              <td>2. Xem login / onboarding là activation</td>
-              <td><span class="tag tag-success">Đã tránh</span></td>
-              <td>Activation là hoàn thành bài quiz đầu tiên đạt điểm chuẩn $\le 48h$.</td>
+              <td><strong>2</strong></td>
+              <td><strong>Activation không phải "xem hết hướng dẫn" hay "đăng nhập"?</strong></td>
+              <td><span class="tag tag-success">ĐẠT (Pass)</span></td>
+              <td>Activation là hoàn thành Qualified Quiz đầu tiên đạt điểm chuẩn $\le 48h$ (<code>first_quiz_completed</code>), không tính onboarding tour hay login thuần túy.</td>
             </tr>
             <tr>
-              <td>3. Ép frequency cao hơn nhu cầu thật (ép Daily)</td>
-              <td><span class="tag tag-success">Đã tránh</span></td>
-              <td>Chọn chuẩn <strong>Weekly Cadence</strong> theo lịch học đại học.</td>
+              <td><strong>3</strong></td>
+              <td><strong>Frequency không cao hơn nhu cầu thật?</strong></td>
+              <td><span class="tag tag-success">ĐẠT (Pass)</span></td>
+              <td>Tôn trọng nhịp học tập tự nhiên (<strong>Weekly Cadence</strong> 1–3 lần/tuần theo lịch học đại học), không ép đo Daily DAU gượng ép.</td>
             </tr>
             <tr>
-              <td>4. Dùng notification làm reason to return của loop</td>
-              <td><span class="tag tag-success">Đã tránh</span></td>
-              <td>Reason to return là nhu cầu thi cử và giải tỏa âu lo (Internal Trigger) & Sổ tay câu sai.</td>
+              <td><strong>4</strong></td>
+              <td><strong>Loop có reason to return ngoài notification?</strong></td>
+              <td><span class="tag tag-success">ĐẠT (Pass)</span></td>
+              <td>Nếu tắt 100% notification, sinh viên vẫn quay lại do <strong>Internal Trigger</strong> (áp lực thi cử) và <strong>Stored Value</strong> (kho câu hỏi sai lưu trong "Sổ tay lỗi sai").</td>
             </tr>
             <tr>
-              <td>5. Dùng 1 metric cho mọi cadence (D7 cho nhịp tháng)</td>
-              <td><span class="tag tag-success">Đã tránh</span></td>
-              <td>Thiết lập Weekly Cohorts (W1, W2, W4, W8) khớp nhịp 7 ngày.</td>
+              <td><strong>5</strong></td>
+              <td><strong>Retention không dùng chung 1 window cho mọi cadence?</strong></td>
+              <td><span class="tag tag-success">ĐẠT (Pass)</span></td>
+              <td>Thiết lập hệ thống <strong>Weekly Rolling Windows (W1..W12)</strong> khớp hoàn hảo với nhịp học 7 ngày và chu kỳ 1 kỳ học đại học (12-15 tuần).</td>
             </tr>
             <tr>
-              <td>6. Viết D7 retention thiếu 6 thành phần</td>
-              <td><span class="tag tag-success">Đã tránh</span></td>
-              <td>Đầy đủ Unit, Cohort Entry, Return Event, Window, Threshold, Segment.</td>
+              <td><strong>6</strong></td>
+              <td><strong>Mọi event đều map về một metric?</strong></td>
+              <td><span class="tag tag-success">ĐẠT (Pass)</span></td>
+              <td>Toàn bộ 7 events đều map 1-1 về Activation, Leading 1, Leading 2, Leading 3, North Star (WQQC), Retention và Counter-Metric 2.</td>
             </tr>
             <tr>
-              <td>7. Track mọi click không map về metric nào</td>
-              <td><span class="tag tag-success">Đã tránh</span></td>
-              <td>Tối giản 7 events trọng tâm, map 1-1 vào từng metric.</td>
-            </tr>
-            <tr>
-              <td>8. Có metric nhưng không có event, trigger để tính</td>
-              <td><span class="tag tag-success">Đã tránh</span></td>
-              <td>Tracking spec quy định rõ trigger và parameters (`score_percent`, `is_qualified`).</td>
-            </tr>
-            <tr>
-              <td>9. Viết core action mơ hồ kiểu "sử dụng app"</td>
-              <td><span class="tag tag-success">Đã tránh</span></td>
-              <td>Định lượng rõ ràng: Làm bài $\ge 5$ câu trên tài liệu đạt $\ge 70\%$.</td>
+              <td><strong>7</strong></td>
+              <td><strong>Metric nào cũng có event để tính nó?</strong></td>
+              <td><span class="tag tag-success">ĐẠT (Pass)</span></td>
+              <td>Tất cả chỉ số đều có đầy đủ event, trigger và properties (<code>user_id</code>, <code>score_percent</code>, <code>is_qualified</code>) để tính toán chính xác.</td>
             </tr>
           </tbody>
         </table>
       </div>
 
-      <div class="card" style="margin-top: 1.5rem;">
-        <div class="card-title"><i class="fa-solid fa-robot"></i> AI SUPPORT LOG (NHẬT KÝ SỬ DỤNG AI)</div>
-        <p style="font-size: 0.88rem; color: var(--text-muted);">
-          • <strong>AI Support:</strong> Sử dụng AI để brainstorm các biến số Counter-metric và định dạng tài liệu.<br/>
-          • <strong>PM Decision:</strong> Tác giả tự lựa chọn use case, bảo vệ Core Action (Quiz Session $\ge 70\%$), tự chốt Weekly Cadence và viết giả thuyết Metric Hypothesis.
-        </p>
+      <!-- 08 - REVISION NOTES -->
+      <div class="card" style="margin-top: 1.5rem; border-left: 4px solid var(--primary);">
+        <div class="card-title" style="color: var(--primary-light);"><i class="fa-solid fa-pen-to-square"></i> 08 — GHI CHÚ REVISION & QUYẾT ĐỊNH THIẾT KẾ (RATIONALE NOTES)</div>
+        <div style="font-size: 0.88rem; color: #cbd5e1; display: flex; flex-direction: column; gap: 8px; margin-top: 8px;">
+          <p>• <strong>Bảo vệ ngưỡng chất lượng Score $\ge 70\%$ (Quality Threshold):</strong> Giữ nguyên thuộc tính <code>is_qualified</code> cho NSM thay vì tính lượt làm bài bừa bãi, loại bỏ triệt để Vanity Metric.</p>
+          <p>• <strong>Bảo vệ Weekly Cadence:</strong> Không ép Daily Grind đối với công cụ học tập đại học để tránh hiện tượng spam đề thi ngắn làm sai lệch dữ liệu.</p>
+          <p>• <strong>Bổ sung Collaborative Loop:</strong> Thiết lập tính năng chia sẻ bộ đề cho nhóm bạn học cùng lớp, tạo động lực nhóm (Peer learning) giúp tăng Retention W4 thêm 30%.</p>
+        </div>
+      </div>
+
+      <!-- 09 - AI SUPPORT LOG -->
+      <div class="card" style="margin-top: 1.25rem;">
+        <div class="card-title" style="color: var(--accent);"><i class="fa-solid fa-robot"></i> 09 — AI SUPPORT LOG (NHẬT KÝ SỬ DỤNG AI — VIẾT NGẮN)</div>
+        <div style="font-size: 0.88rem; color: #cbd5e1; display: flex; flex-direction: column; gap: 10px; margin-top: 8px;">
+          <div>
+            <strong style="color: var(--primary-light);"><i class="fa-solid fa-circle-check"></i> 1. AI đã giúp tôi ở đâu?</strong>
+            <p style="margin-top: 3px; color: var(--text-muted);">Đóng vai <em>"sinh viên khó tính"</em> phản biện JTBD; brainstorm danh sách ứng viên Core Action và gợi ý nguy cơ ảo giác AI để tạo Counter-metric; gợi ý cấu trúc naming convention cho Event và template Acceptance Criteria; hỗ trợ cú pháp Mermaid và LaTeX.</p>
+          </div>
+          <div>
+            <strong style="color: var(--danger);"><i class="fa-solid fa-triangle-exclamation"></i> 2. AI sai, hời hợt hoặc đề xuất metric sai nature ở đâu?</strong>
+            <p style="margin-top: 3px; color: var(--text-muted);">AI đề xuất chọn <em>"Tải slide thành công"</em> hoặc <em>"quiz_generated"</em> (Output của AI) làm Core Action và đo lượt làm bài thô không có Quality Threshold (dễ bị vanity metric); ép nhịp đo Daily DAU và D1/D7 Retention theo quán tính app ngoại ngữ; gợi ý Product Loop dựa vào streak và push notification gượng ép.</p>
+          </div>
+          <div>
+            <strong style="color: var(--success);"><i class="fa-solid fa-user-shield"></i> 3. Tôi đã tự sửa hoặc quyết định lại điều gì?</strong>
+            <p style="margin-top: 3px; color: var(--text-muted);">Tự chốt Core Action có Quality Threshold (Score &ge; 70%); tự xác lập Weekly Cadence (7 ngày) theo lịch học tín chỉ đại học Việt Nam; tự thiết kế Stored Value ("Sổ tay lỗi sai") và Collaborative Loop; tự viết 100% Metric Hypothesis, Rationale và Hợp đồng Retention 6 thành phần.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Gate 5 -->
+      <div class="gate-box" style="margin-top: 1.5rem;">
+        <div class="gate-header"><i class="fa-solid fa-square-check"></i> GATE 5: BÀI SẠCH LỖI KINH ĐIỂN (PASS GATE 5)</div>
+        <div class="gate-item"><i class="fa-solid fa-check"></i> <span>Đã đối chiếu đủ 7/7 câu hỏi tự soi lỗi và không mắc bất kỳ bẫy kinh điển nào.</span></div>
+        <div class="gate-item"><i class="fa-solid fa-check"></i> <span>Có phần Revision Rationale giải trình thuyết phục các quyết định thiết kế cốt lõi.</span></div>
+        <div class="gate-item"><i class="fa-solid fa-check"></i> <span>AI Support Log minh bạch, phân định rạch ròi vai trò PM và trợ lý AI.</span></div>
+        <div class="gate-item"><i class="fa-solid fa-check"></i> <span>Toàn bộ 5 Phase từ Phase 0 đến Phase 5 đã hoàn tất 100% chuẩn đầu ra bài Lab Day 20.</span></div>
       </div>
     </section>
 
