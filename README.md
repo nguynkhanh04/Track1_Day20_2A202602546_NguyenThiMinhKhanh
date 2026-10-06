@@ -91,50 +91,48 @@
 
 ---
 
-## PHASE 2: NATURE & NATURAL CADENCE CARD
+## PHASE 2: NATURE & CADENCE (15 PHÚT)
 
-### 1. Phân tích bản chất nhu cầu (Nature vs Nurture)
+### 1. Điền Action Nature Card (10 phút)
 
-```
-                       BẢN CHẤT NHU CẦU HỌC TẬP NGOÀI ĐỜI THỰC
- ┌──────────────────────────────────────────────────────────────────────────────────┐
- │ • Lịch học đại học: 2 - 3 buổi học/môn/tuần                                     │
- │ • Nhịp làm bài tập & chuẩn bị bài trước giờ lên lớp: 1 - 2 lần/tuần/môn          │
- │ • Nhịp ôn thi định kỳ (Mid-term / Final-term): Đợt cao điểm kéo dài 2-3 tuần     │
- └──────────────────────────────────────────────────────────────────────────────────┘
-                                          ▼
- ┌──────────────────────────────────────┐    ┌──────────────────────────────────────┐
- │          NATURE (Tự nhiên)           │    │          NURTURE (Nuôi dưỡng)        │
- ├──────────────────────────────────────┤    ├──────────────────────────────────────┤
- │ Nhu cầu ôn bài tự nhiên xuất hiện     │    │ Gửi thông báo nhắc lịch học trước 24h│
- │ theo chu kỳ tuần học (Weekly) và      │    │ dựa trên thời khóa biểu của sinh viên│
- │ trước các đợt kiểm tra trên lớp.      │    │ để gợi ý bộ đề ôn nhanh 5 phút.      │
- └──────────────────────────────────────┘    └──────────────────────────────────────┘
-```
+| Thành phần | Câu hỏi định hướng | Phân tích chi tiết cho StudyMate AI |
+| :--- | :--- | :--- |
+| **Actor** | User, account, team hay object nào thực hiện? | **User (Sinh viên đại học)** trực tiếp thực hiện trên tài khoản cá nhân. |
+| **Intent** | Hành vi bắt đầu từ nhu cầu gì? | Nhu cầu chuẩn bị bài trước giờ lên lớp, củng cố kiến thức sau buổi giảng hoặc ôn thi nước rút để đạt điểm cao. |
+| **Trigger** | Do user chủ động, sự kiện bên ngoài, người khác hay hệ thống kích hoạt? | **Kết hợp cả 3:**<br/>• *Bên trong (Chủ động):* Tâm lý lo lắng trước bài kiểm tra, mong muốn đạt GPA cao.<br/>• *Sự kiện bên ngoài:* Lịch học trên trường, hạn nộp bài tập, lịch thi giữa kỳ/cuối kỳ.<br/>• *Hệ thống:* Thông báo nhắc lịch ôn bài trước giờ lên lớp 24h. |
+| **Effort** | Mất bao nhiêu thời gian, suy nghĩ, dữ liệu? | • *Thời gian:* 5 – 10 phút cho một phiên làm bài 5–10 câu hỏi.<br/>• *Nhận thức (Cognitive effort):* Mức trung bình – cao (đòi hỏi đọc đề, tư duy logic và lựa chọn đáp án).<br/>• *Dữ liệu:* Cần có sẵn ít nhất 1 tài liệu/slide bài giảng. |
+| **Value timing** | Value xuất hiện ngay, trễ, tích lũy, hay phụ thuộc người khác? | • **Ngay lập tức:** Nhận điểm số và giải thích chi tiết câu đúng/sai sau khi nộp bài.<br/>• **Tích lũy:** Sự tự tin và điểm số thi cử thật trên giảng đường sau nhiều tuần ôn luyện. |
+| **State** | Sau action, dữ liệu/trạng thái nào được giữ lại? | • Điểm số phiên làm bài được ghi nhận vào lịch sử học tập.<br/>• Các câu trả lời sai tự động được thêm vào **"Sổ tay lỗi sai (Error Notebook)"** để tạo đề ôn lại sau này. |
+| **Dependency** | Có phụ thuộc nguồn cung, thành viên khác, approval, thời điểm? | Phụ thuộc vào **thời điểm trong kỳ học** (kỳ học bắt đầu, đợt thi giữa kỳ/cuối kỳ) và **tài liệu học tập** của giảng viên phát. Không phụ thuộc vào sự phê duyệt của người khác. |
+| **Repeat condition** | Điều kiện nào khiến action có lý do xuất hiện lại? | • Sinh viên có bài học/chương mới trên lớp vào tuần tiếp theo.<br/>• Bước vào đợt ôn thi môn học tiếp theo.<br/>• Có nhu cầu làm lại các câu từng làm sai trong Sổ tay lỗi sai. |
 
-### 2. Action Nature Card & Kết luận Cadence
+---
 
-```
-┌────────────────────────────────────────────────────────────────────────────────────────┐
-│                              ACTION NATURE CARD                                        │
-├────────────────────────────────────────────────────────────────────────────────────────┤
-│ Tần suất nhu cầu ngoài đời thực:                                                       │
-│   - Trong kỳ học bình thường: 1 - 3 lần / tuần.                                       │
-│   - Trong giai đoạn thi cử: 4 - 6 lần / tuần.                                         │
-│                                                                                        │
-│ Sai lầm cần tránh:                                                                     │
-│   - Không ép "Daily Active User (DAU)" vì sinh viên không phải ngày nào cũng có nhu    │
-│     cầu ôn tập cho cùng một môn học. Việc ép daily sẽ dẫn tới notification spam.       │
-│                                                                                        │
-│ KẾT LUẬN NATURAL CADENCE:                                                              │
-│   ► Cadence chuẩn: WEEKLY (Hàng tuần - Chu kỳ 7 ngày).                                 │
-│   ► Đơn vị đo lường cơ bản: Weekly Active Learner (Sinh viên có >= 1 Qualified Quiz/tuần)│
-└────────────────────────────────────────────────────────────────────────────────────────┘
-```
+### 2. Kết luận Cadence (5 phút)
 
-### 3. Gate 2: Tự kiểm tra (Pass Gate 2)
-- [x] Không ép nhịp Daily khi bản chất sản phẩm là theo lịch học đại học (Weekly).
-- [x] Nurture (thông báo/email) bám sát lịch học thực tế, không bịa ra lý do quay lại giả tạo.
+#### a) Lựa chọn dạng hành vi
+* **Dạng hành vi:** **Theo chu kỳ học tập & Tiến trình tích lũy (Cyclical & Cumulative Progress)**.
+  - Hành vi không xuất hiện ngẫu nhiên mà vận động theo chu kỳ tuần học (2-3 buổi học/môn/tuần) và theo chu kỳ mùa thi (Mid-term / Final-term).
+
+#### b) Kết luận chuẩn hóa theo Template
+> **Kết luận Cadence:**  
+> *"Đối với **sinh viên đại học**, core action **hoàn thành phiên luyện đề ôn tập môn học đạt điểm $\ge 70\%$** thường xuất hiện **1 – 3 lần mỗi tuần (và tăng lên 4 – 6 lần/tuần trong đợt thi)** vì **lịch học tín chỉ diễn ra theo tuần (2–3 buổi/môn/tuần) và các bài kiểm tra được xếp lịch định kỳ**. Do đó, nhịp đo phù hợp là **WEEKLY (Hàng tuần - Chu kỳ 7 ngày)** ở cấp **User Account**."*
+
+---
+
+### 3. Cân nhắc chuyên sâu: Frequency cao hơn có luôn đồng nghĩa Value cao hơn?
+
+* **Với sản phẩm AI như StudyMate AI:**  
+  - Sinh viên vào app, làm nhanh một bài test 5 phút nắm vững 100% bài học và quay lại học môn khác mang lại **nhiều giá trị hơn** việc sinh viên phải ngồi mày mò 2 tiếng trong app vì AI tạo câu hỏi lan man.
+  - Do đó, chúng ta **không tối ưu chỉ số ảo (Vanity Metric) như Time Spent on App hay Daily Grind**, mà tối ưu **chất lượng của mỗi phiên luyện đề (Completion Rate & Score $\ge 70\%$)** theo đúng nhịp tự nhiên hàng tuần.
+
+---
+
+### 4. GATE 2 — CADENCE TỪ NATURE, KHÔNG TỪ DASHBOARD (PASS GATE 2)
+- [x] **Đúng template kết luận**: Có đầy đủ Persona, Core Action, Tần suất, Lý do "vì", Nhịp đo và Cấp độ đối tượng.
+- [x] **Lập luận "vì" vững chắc**: Xuất phát từ thực tế thời khóa biểu đại học và lịch thi cử (Nature), không lấy từ thói quen dashboard.
+- [x] **Không mâu thuẫn**: Nhịp đo **Weekly** hoàn toàn tương thích với dạng hành vi **Theo chu kỳ & Tích lũy**.
+- **KẾT LUẬN: ĐỦ ĐIỀU KIỆN QUA GATE 2 ĐỂ SANG PHASE 3.**
 
 ---
 

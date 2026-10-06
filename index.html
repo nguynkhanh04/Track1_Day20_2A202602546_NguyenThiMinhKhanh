@@ -658,45 +658,94 @@
       <div class="phase-header">
         <div class="phase-title-wrap">
           <span class="phase-pill">Phase 2</span>
-          <h2 class="phase-title">Nature & Natural Cadence</h2>
+          <h2 class="phase-title">Nature & Cadence (15 phút)</h2>
         </div>
         <div class="time-badge"><i class="fa-regular fa-clock"></i> 15 phút</div>
       </div>
 
-      <div class="grid-2">
-        <div class="card">
-          <div class="card-title"><i class="fa-solid fa-tree"></i> NATURE (Bản chất nhu cầu tự nhiên)</div>
-          <p style="font-size: 0.9rem; color: var(--text-muted);">Nhu cầu học và ôn tập của sinh viên gắn liền với thời khóa biểu trường đại học (2-3 buổi học/tuần) và kỳ thi định kỳ (Mid-term, Final-term).</p>
-          <ul style="margin: 10px 0 0 20px; font-size: 0.88rem;">
-            <li>Trong kỳ học: 1 - 3 lần / tuần.</li>
-            <li>Giai đoạn ôn thi nước rút: 4 - 6 lần / tuần.</li>
-            <li><strong>Không ép Daily</strong>: Sinh viên không có nhu cầu ôn cùng 1 môn học mỗi ngày.</li>
-          </ul>
-        </div>
-
-        <div class="card">
-          <div class="card-title"><i class="fa-solid fa-seedling"></i> NURTURE (Tác động nuôi dưỡng)</div>
-          <p style="font-size: 0.9rem; color: var(--text-muted);">Sản phẩm hỗ trợ khuếch đại nhịp tự nhiên, tuyệt đối không spam notification giả tạo.</p>
-          <ul style="margin: 10px 0 0 20px; font-size: 0.88rem;">
-            <li>Gửi email/push nhắc ôn trước buổi học 24h theo thời khóa biểu.</li>
-            <li>Gợi ý bộ đề 5 phút từ slide bài học sinh viên đã tải lên.</li>
-          </ul>
-        </div>
+      <!-- 1. Action Nature Card -->
+      <h3 style="font-size: 1.1rem; color: var(--primary-light); margin-bottom: 0.75rem;"><i class="fa-solid fa-leaf"></i> 1. Action Nature Card (10 phút)</h3>
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th style="width: 20%;">Thành phần</th>
+              <th style="width: 30%;">Câu hỏi định hướng</th>
+              <th>Phân tích chi tiết cho StudyMate AI</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Actor</strong></td>
+              <td>User, account, team hay object nào?</td>
+              <td><strong>User (Sinh viên đại học)</strong> trên tài khoản cá nhân.</td>
+            </tr>
+            <tr>
+              <td><strong>Intent</strong></td>
+              <td>Hành vi bắt đầu từ nhu cầu gì?</td>
+              <td>Chuẩn bị bài trước giờ lên lớp, củng cố kiến thức hoặc ôn thi nước rút để đạt điểm cao.</td>
+            </tr>
+            <tr>
+              <td><strong>Trigger</strong></td>
+              <td>Chủ động, bên ngoài, hay hệ thống kích hoạt?</td>
+              <td>• <em>Chủ động:</em> Lo lắng trước kỳ thi, muốn cải thiện GPA.<br/>• <em>Bên ngoài:</em> Lịch học, hạn nộp bài, lịch thi giữa/cuối kỳ.<br/>• <em>Hệ thống:</em> Thông báo nhắc bài trước giờ lên lớp 24h.</td>
+            </tr>
+            <tr>
+              <td><strong>Effort</strong></td>
+              <td>Mất bao nhiêu thời gian, suy nghĩ, dữ liệu?</td>
+              <td>• <em>Thời gian:</em> 5 – 10 phút/phiên (5–10 câu hỏi).<br/>• <em>Nhận thức:</em> Trung bình – Cao (đọc đề & tư duy logic).<br/>• <em>Dữ liệu:</em> Cần ít nhất 1 tài liệu/slide bài giảng.</td>
+            </tr>
+            <tr>
+              <td><strong>Value timing</strong></td>
+              <td>Ngay, trễ, tích lũy, hay phụ thuộc?</td>
+              <td>• <strong>Ngay lập tức:</strong> Điểm số + giải thích chi tiết đáp án đúng/sai.<br/>• <strong>Tích lũy:</strong> Tự tin và điểm số thi thật trên trường sau nhiều tuần ôn luyện.</td>
+            </tr>
+            <tr>
+              <td><strong>State</strong></td>
+              <td>Dữ liệu/trạng thái nào được giữ lại?</td>
+              <td>Điểm số lưu vào lịch sử học tập; câu sai tự động đưa vào <strong>"Sổ tay lỗi sai"</strong> để tạo đề ôn lại sau.</td>
+            </tr>
+            <tr>
+              <td><strong>Dependency</strong></td>
+              <td>Phụ thuộc cung, team, approval, thời điểm?</td>
+              <td>Phụ thuộc vào <strong>thời điểm kỳ học / lịch thi</strong> và <strong>tài liệu học tập</strong> của trường. Không phụ thuộc approval của người khác.</td>
+            </tr>
+            <tr>
+              <td><strong>Repeat condition</strong></td>
+              <td>Điều kiện nào khiến action lặp lại?</td>
+              <td>Có bài học/chương mới vào tuần tiếp theo; bước vào đợt thi mới; hoặc có nhu cầu ôn lại câu sai trong Sổ tay lỗi sai.</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
 
-      <div class="highlight-card" style="margin-top: 1.25rem;">
-        <div style="font-weight: 700; color: var(--accent); margin-bottom: 6px;"><i class="fa-solid fa-calendar-check"></i> KẾT LUẬN NATURAL CADENCE</div>
-        <p style="font-size: 0.95rem;">
-          ► <strong>Chu kỳ chuẩn: WEEKLY (Hàng tuần - 7 ngày)</strong>.<br/>
-          ► Đơn vị đo lường hành vi: <strong>Weekly Active Learner</strong> (Sinh viên có $\ge 1$ phiên luyện đề đạt chuẩn trong tuần).
+      <!-- 2. Kết luận Cadence -->
+      <h3 style="font-size: 1.1rem; color: var(--primary-light); margin: 1.5rem 0 0.75rem;"><i class="fa-solid fa-clock-rotate-left"></i> 2. Kết luận Cadence (5 phút)</h3>
+      <div class="card" style="margin-bottom: 1rem;">
+        <p><strong>Dạng hành vi được chọn:</strong> <span class="tag tag-primary">Theo chu kỳ học tập & Tiến trình tích lũy</span> (Cyclical & Cumulative Progress gắn liền với lịch học hàng tuần và các đợt thi).</p>
+      </div>
+
+      <div class="highlight-card" style="border-left: 4px solid var(--accent); background: rgba(6, 182, 212, 0.06);">
+        <div style="font-weight: 700; color: var(--accent); margin-bottom: 6px;"><i class="fa-solid fa-quote-left"></i> KẾT LUẬN CADENCE THEO TEMPLATE CHUẨN</div>
+        <p style="font-size: 0.95rem; line-height: 1.7;">
+          "Đối với <strong>sinh viên đại học</strong>, core action <strong>hoàn thành phiên luyện đề ôn tập môn học đạt điểm $\ge 70\%$</strong> thường xuất hiện <strong>1 – 3 lần mỗi tuần (và tăng lên 4 – 6 lần/tuần trong các đợt thi)</strong> vì <strong>lịch học tín chỉ diễn ra theo tuần (2–3 buổi/môn/tuần) và các bài kiểm tra được xếp lịch định kỳ</strong>. Do đó, nhịp đo phù hợp là <strong>WEEKLY (Hàng tuần - Chu kỳ 7 ngày)</strong> ở cấp <strong>User Account</strong>."
+        </p>
+      </div>
+
+      <!-- Cân nhắc sản phẩm AI -->
+      <div class="card" style="margin-top: 1rem;">
+        <div class="card-title" style="color: var(--warning);"><i class="fa-solid fa-lightbulb"></i> Cân nhắc: Frequency cao hơn có luôn nghĩa là Value cao hơn?</div>
+        <p style="font-size: 0.88rem; color: #cbd5e1;">
+          Với sản phẩm AI như StudyMate AI, việc sinh viên giải quyết nhanh gọn bài ôn trong 5–10 phút và hiểu bài là tín hiệu tốt hơn nhiều so với việc ngồi lì cả tiếng trong app. Do đó sản phẩm <strong>không tối ưu vanity metric "Time Spent" hay ép "Daily Grind"</strong>, mà tối ưu chất lượng của mỗi phiên làm bài (Completion & Score &ge; 70%) đúng theo nhịp học tuần.
         </p>
       </div>
 
       <!-- Gate 2 -->
       <div class="gate-box">
-        <div class="gate-header"><i class="fa-solid fa-square-check"></i> GATE 2: KIỂM TRA ĐIỀU KIỆN CADENCE</div>
-        <div class="gate-item"><i class="fa-solid fa-check"></i> <span>Không ép nhịp Daily cho bài toán học tập theo tín chỉ đại học.</span></div>
-        <div class="gate-item"><i class="fa-solid fa-check"></i> <span>Nurture tôn trọng và bám sát nhịp tự nhiên (Nature-first).</span></div>
+        <div class="gate-header"><i class="fa-solid fa-square-check"></i> GATE 2: CADENCE TỪ NATURE, KHÔNG TỪ DASHBOARD (PASS GATE 2)</div>
+        <div class="gate-item"><i class="fa-solid fa-check"></i> <span>Kết luận cadence theo đúng cú pháp template với đầy đủ 6 biến số.</span></div>
+        <div class="gate-item"><i class="fa-solid fa-check"></i> <span>Lý do "vì" xuất phát từ bản chất lịch học đại học (Nature), không ép Daily theo thói quen dashboard.</span></div>
+        <div class="gate-item"><i class="fa-solid fa-check"></i> <span>Nhịp đo Weekly hoàn toàn đồng nhất với dạng hành vi "Theo chu kỳ & Tiến trình tích lũy".</span></div>
       </div>
     </section>
 
