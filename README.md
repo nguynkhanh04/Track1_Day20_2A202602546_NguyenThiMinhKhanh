@@ -6,7 +6,6 @@
 > **Dự án lựa chọn**: **StudyMate AI - Trợ lý AI Tóm tắt & Luyện đề Ôn thi Thông minh cho Sinh viên**  
 > **Tài liệu nộp kèm**:
 > - **Tệp Nhật ký sử dụng AI:** [`ai-support-log.md`](file:///d:/New%20folder/LAB_D20/Track1_Day20_2A202602546_NguyenThiMinhKhanh/ai-support-log.md)
-> - **Dashboard Trình diễn Giao diện:** [`index.html`](file:///d:/New%20folder/LAB_D20/Track1_Day20_2A202602546_NguyenThiMinhKhanh/index.html)
 > - **Thời gian thực hiện**: 90 phút  
 
 ---
