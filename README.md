@@ -138,77 +138,98 @@
 
 ## PHASE 3: HỆ THỐNG METRIC & ĐỊNH NGHĨA RETENTION
 
-### 1. Hệ thống chỉ số sản phẩm (Metric Hierarchy)
+## PHASE 3: METRIC SYSTEM + RETENTION (25 PHÚT)
 
-```
-                            ┌──────────────────────────────────────────────┐
-                            │             NORTH STAR METRIC                │
-                            │  Weekly Qualified Quiz Completions (WQQC)   │
-                            │  (Số phiên luyện đề đạt >=70% xong mỗi tuần) │
-                            └──────────────────────┬───────────────────────┘
-                                                   │
-                ┌──────────────────────────────────┴──────────────────────────────────┐
-                ▼                                                                     ▼
-   ┌─────────────────────────┐                                           ┌─────────────────────────┐
-   │    ACTIVATION METRIC    │                                           │    ENGAGEMENT METRIC    │
-   │ % User mới hoàn thành   │                                           │ Số phiên ôn/User/Tuần   │
-   │ 1st Qualified Quiz <=48h│                                           │ & Thời gian làm bài/Quiz│
-   └────────────┬────────────┘                                           └────────────┬────────────┘
-                │                                                                     │
-                ▼                                                                     ▼
-   ┌─────────────────────────┐                                           ┌─────────────────────────┐
-   │   LEADING INDICATORS    │                                           │     COUNTER-METRIC      │
-   │ • % User upload doc D0  │                                           │ • Quiz Drop-off Rate    │
-   │ • % Click "Luyện đề ngay│                                           │ • AI Error Report Rate  │
-   └─────────────────────────┘                                           └─────────────────────────┘
-```
+### 1. Activation Metric (5 phút)
 
-| Loại chỉ số | Tên chỉ số | Công thức / Định nghĩa chi tiết | Mục đích theo dõi |
-| :--- | :--- | :--- | :--- |
-| **North Star Metric** | **Weekly Qualified Quiz Completions (WQQC)** | $\sum (\text{Số phiên làm bài hoàn thành có điểm } \ge 70\% \text{ trong 7 ngày})$ | Đo lường tổng giá trị học tập thực tế mà sản phẩm mang lại cho toàn bộ sinh viên trong tuần. |
-| **Activation Metric** | **48h First-Quiz Completion Rate** | $\frac{\text{Số user mới hoàn thành 1st Quiz } \ge 70\% \text{ trong 48h}}{\text{Tổng số user mới đăng ký}} \times 100\%$ | Đo lường hiệu quả dẫn dắt người dùng mới chạm tới "Aha Moment" đầu tiên. |
-| **Engagement Metric** | **Weekly Quiz Frequency per Active User** | $\frac{\text{Tổng số Qualified Quiz hoàn thành trong tuần}}{\text{Số lượng Weekly Active Users}}$ | Đo lường mức độ gắn kết sâu và thói quen ôn tập của sinh viên. |
-| **Leading Indicator 1** | **D0 Document Upload Rate** | % người dùng mới tải lên ít nhất 1 tài liệu học tập trong vòng 2 giờ đầu sau khi tạo tài khoản. | Dự báo khả năng đạt Activation. |
-| **Leading Indicator 2** | **AI Quiz Generation-to-Start Rate** | % số bộ đề AI tạo ra được người dùng bấm "Bắt đầu làm bài" trong vòng 10 phút. | Đo độ hấp dẫn và mức độ phù hợp của đề thi do AI gợi ý. |
-| **Counter-Metric 1** | **Quiz Abandonment Rate (Tỉ lệ bỏ dở)** | % phiên làm bài bị người dùng thoát ra trước khi trả lời được 50% số câu hỏi. | Cảnh báo: Đề quá khó, AI tạo câu hỏi lan man hoặc giao diện gây ức chế. |
-| **Counter-Metric 2** | **AI Hallucination / Question Error Report Rate** | $\frac{\text{Số câu hỏi bị bấm 'Báo lỗi kiến thức'}}{\text{Tổng số câu hỏi được sinh ra}} \times 100\%$ (Ngưỡng an toàn: $\le 2\%$) | Đảm bảo uy tín học thuật của AI; ngăn chặn việc tối ưu số lượng đề nhưng nội dung sai lệch. |
+| Thành phần cấu thành | Định nghĩa cho StudyMate AI |
+| :--- | :--- |
+| **Start event** | `user_signed_up`: Thời điểm sinh viên hoàn tất tạo tài khoản thành công. |
+| **Activation event** | `first_quiz_completed` với `score >= 70%`: Thời điểm sinh viên lần đầu tiên hoàn thành và nộp 1 bài luyện đề đạt điểm chuẩn (chạm tới "Aha Moment" & nhận first value). |
+| **Time window** | Trong vòng **48 giờ** kể từ thời điểm `user_signed_up`. |
+
+* **Tên chỉ số:** **48-Hour First Qualified Quiz Completion Rate**
+* **Công thức tính:**
+  $$\text{Activation Rate} = \frac{\text{Số user mới hoàn thành 1st Quiz } \ge 70\% \text{ trong 48h}}{\text{Tổng số user mới đăng ký trong cùng kỳ}} \times 100\%$$
+* **Tránh lỗi kinh điển:** Tuyệt đối không dùng "Hoàn tất tour giới thiệu (Onboarding completed)" hay "Đăng nhập lại lần 2" làm Activation vì user chưa hề tiếp thu kiến thức hay nhận giá trị học tập cốt lõi.
 
 ---
 
-### 2. Định nghĩa Retention chuẩn 6 thành phần (Metric Definition Contract)
+### 2. Engagement Metric (3 phút)
 
-```
-┌────────────────────────────────────────────────────────────────────────────────────────┐
-│                        RETENTION DEFINITION CONTRACT (6 THÀNH PHẦN)                    │
-├────────────────────────────────────────────────────────────────────────────────────────┤
-│ 1. UNIT (Đối tượng được đếm):                                                          │
-│    ► User Account duy nhất (distinct user_id của sinh viên).                           │
-│                                                                                        │
-│ 2. COHORT ENTRY EVENT (Sự kiện vào nhóm):                                              │
-│    ► Hoàn thành hành vi Activation: Lần đầu tiên submit bài kiểm tra đạt chuẩn         │
-│      (quiz_completed với score >= 70%) trong vòng 48h sau đăng ký.                     │
-│                                                                                        │
-│ 3. RETURN EVENT (Hành vi quay lại được công nhận):                                     │
-│    ► Bắt buộc là CORE ACTION: Thực hiện ít nhất 1 phiên quiz_completed với             │
-│      score >= 70% (Tuyệt đối KHÔNG tính hành vi mở app hoặc đăng nhập).                │
-│                                                                                        │
-│ 4. WINDOW (Khung thời gian đo):                                                        │
-│    ► Weekly Cohort Retention (W1, W2, W3, W4, W8, W12) - Mỗi window = 7 ngày liên tiếp.│
-│                                                                                        │
-│ 5. THRESHOLD (Ngưỡng đạt chuẩn trong Window):                                          │
-│    ► Tần suất tối thiểu: >= 1 lần hoàn thành Qualified Quiz trong window 7 ngày đó.    │
-│                                                                                        │
-│ 6. SEGMENT (Phân khúc phân tích chuyên sâu):                                           │
-│    ► Phân khúc theo Khối ngành: STEM / Y Dược vs. Kinh tế / Xã hội.                    │
-│    ► Phân khúc theo Gói sử dụng: Free Learner vs. Pro Subscriber.                       │
-│    ► Phân khúc theo Kênh tiếp cận: Tự đăng ký vs. Được mời qua Shared Quiz Link.       │
-└────────────────────────────────────────────────────────────────────────────────────────┘
-```
+Chọn 2 góc đo chuyên sâu khớp với Natural Cadence:
 
-### 3. Gate 3: Tự kiểm tra (Pass Gate 3)
-- [x] **Đủ 6 thành phần**: Unit, Cohort Entry, Return Event, Window, Threshold, Segment.
-- [x] **Return Event là Core Action**: Đã gắn chặt với `quiz_completed (score >= 70%)`, không dùng `app_opened`.
-- [x] **Window khớp Cadence**: Dùng Weekly Window (W1..W12) khớp 100% với nhịp học tập tự nhiên.
+1. **Góc đo Frequency (Tần suất ôn luyện theo tuần):**
+   * **Tên chỉ số:** **Weekly Quiz Frequency per Active User**
+   * **Công thức:** $\frac{\text{Tổng số Qualified Quizzes hoàn thành trong tuần}}{\text{Số lượng Weekly Active Users (WAU)}}$
+   * **Ý nghĩa:** Đo lường mức độ hình thành thói quen ôn bài đều đặn của sinh viên (Mục tiêu: $\ge 2.5$ phiên/tuần).
+
+2. **Góc đo Depth (Độ sâu giá trị thu nhận):**
+   * **Tên chỉ số:** **Error Notebook Review Rate (Tỉ lệ rà soát câu sai)**
+   * **Công thức:** $\frac{\text{Số user xem giải thích chi tiết và lưu câu sai vào sổ tay}}{\text{Tổng số user có câu trả lời sai trong phiên}} \times 100\%$
+   * **Ý nghĩa:** Đo lường mức độ học tập chủ động và đào sâu kiến thức thay vì chỉ làm bài chống đối.
+
+---
+
+### 3. Retention Definition (Đầy đủ 6 thành phần) (7 phút)
+
+#### a) Hợp đồng định nghĩa Retention (Retention Definition Contract)
+
+| Thành phần | Câu hỏi định hướng | Định nghĩa chi tiết cho StudyMate AI |
+| :--- | :--- | :--- |
+| **1. Unit** | User, account, team hay object? | **User Account** duy nhất (distinct `user_id` của sinh viên). |
+| **2. Cohort entry** | Event nào đưa unit vào cohort? | Hoàn thành hành vi Activation (`first_quiz_completed` với `score >= 70%` trong vòng 48h). |
+| **3. Return event** | Core action nào phải lặp lại? | **Bắt buộc là Core Action:** Thực hiện `quiz_completed` với `score >= 70%` (hoàn tất xem giải thích câu sai). *Tuyệt đối KHÔNG dùng app_opened hay login*. |
+| **4. Window** | Khung thời gian đo là gì? | **Weekly Rolling Windows (W1, W2, W3, W4, W8, W12)** – Mỗi window là một chu kỳ 7 ngày liên tiếp (khớp 100% với Cadence ở Phase 2). |
+| **5. Threshold** | Tần suất bao nhiêu trong window? | Tối thiểu $\ge 1$ lần hoàn thành Qualified Quiz trong window 7 ngày đó. |
+| **6. Segment** | Áp dụng phân tích cho ai? | • Khối ngành: STEM / Y Dược vs. Kinh tế / Xã hội.<br/>• Gói sử dụng: Free vs. Pro Subscriber.<br/>• Kênh tiếp cận: Tự tìm kiếm (Organic) vs. Được mời qua Shared Quiz Link. |
+
+#### b) Đối chiếu Retention với 3 mốc (S34 Framework)
+1. **Mốc 1 - Natural cycle (Chu kỳ tự nhiên):** Đo theo Weekly Cohort (W1..W12) khớp đúng với thời lượng 1 học kỳ đại học (12 - 15 tuần).
+2. **Mốc 2 - Cohort đúng segment:** Segment học sinh được mời qua **Shared Quiz Link** kỳ vọng giữ chân cao hơn 25–30% so với segment tự học đơn lẻ.
+3. **Mốc 3 - Benchmark category (EdTech & Study Tools):** W4 Retention tiêu chuẩn ngành EdTech là 25% – 35%; StudyMate AI đặt mục tiêu W4 Retention đạt **35%**.
+
+---
+
+### 4. North Star Metric + Leading Indicators + Counter-Metrics (10 phút)
+
+#### a) North Star Metric (NSM) chuẩn 3 thành phần
+* **Công thức cấu thành:**
+  $$\text{NSM} = \text{Unit of Value (Qualified Quiz Session)} + \text{Quality Threshold (Score } \ge 70\%) + \text{Frequency (Weekly)}$$
+* **Tên chỉ số:** **Weekly Qualified Quiz Completions (WQQC)**
+* **Định nghĩa:** Tổng số phiên luyện đề trắc nghiệm/flashcard được sinh viên hoàn thành với điểm số $\ge 70\%$ (hoặc xem 100% giải thích) trong mỗi chu kỳ 7 ngày.
+* **Lý do chọn:** Phản ánh trực tiếp khối lượng kiến thức thực tế mà sinh viên ôn luyện thành công qua app; không bị ảo như chỉ số "số lượt hỏi AI" hay "doanh thu".
+
+#### b) Leading Indicators (Chỉ số dẫn dắt - Tối đa 3 chỉ số)
+
+1. **D0 Document Upload Rate:**  
+   * *Định nghĩa:* % người dùng mới tải lên ít nhất 1 tài liệu/slide môn học trong vòng 2 giờ đầu sau khi tạo tài khoản.  
+   * *Vì sao dự báo được Core Action:* Có tài liệu là điều kiện tiên quyết để AI tạo đề thi; user tải lên ngay chứng minh nhu cầu ôn thi cấp thiết và xác suất làm bài quiz đầu tiên trong 48h cao gấp 3 lần.
+2. **AI Quiz Generation-to-Start Rate:**  
+   * *Định nghĩa:* % số bộ đề AI tạo ra được người dùng bấm "Bắt đầu làm bài" trong vòng 10 phút.  
+   * *Vì sao dự báo được Core Action:* Đo lường độ liên quan và sức hấp dẫn của đề thi; đề thi bám sát tài liệu sẽ thúc đẩy sinh viên bắt đầu làm bài ngay thay vì rời bỏ.
+3. **Collaborative Quiz Share Rate:**  
+   * *Định nghĩa:* % sinh viên bấm chia sẻ bộ đề cho bạn bè sau khi hoàn thành bài test.  
+   * *Vì sao dự báo được Core Action:* Sinh viên chia sẻ đề cho bạn cùng lớp sẽ tạo áp lực và động lực học nhóm (Peer learning), kéo cả nhóm quay lại so tài và ôn tập trong các tuần tiếp theo.
+
+#### c) Counter-Metrics (Chỉ số bảo vệ chất lượng - Chống gaming)
+
+1. **Quiz Abandonment Rate (Tỉ lệ bỏ dở giữa chừng):**
+   * *Định nghĩa:* % phiên làm bài bị thoát ra trước khi trả lời được 50% số câu hỏi.
+   * *Mục đích bảo vệ:* Cảnh báo đề thi quá dài, câu hỏi đánh đố quá mức, hoặc giao diện gây ức chế.
+2. **AI Error / Hallucination Report Rate (Tỉ lệ báo cáo ảo giác AI):**
+   * *Công thức:* $\frac{\text{Số câu hỏi bị bấm 'Báo lỗi kiến thức'}}{\text{Tổng số câu hỏi được AI sinh ra}} \times 100\%$ (Ngưỡng an toàn: $\le 2\%$).
+   * *Mục đích bảo vệ:* Ngăn ngừa việc thuật toán AI sinh ra hàng nghìn câu hỏi nhanh nhưng nội dung sai lệch học thuật, làm mất uy tín sản phẩm.
+
+---
+
+### 5. GATE 3 — METRIC TÍNH ĐƯỢC, RETENTION ĐỦ NGHĨA (PASS GATE 3)
+- [x] **Activation metric rõ ràng**: Có Start Event (`user_signed_up`), Activation Event (`first_quiz_completed >= 70%`), Time Window (`48h`).
+- [x] **Retention đầy đủ 6 thành phần**: Unit, Cohort entry, Return event (`quiz_completed`), Window (`Weekly`), Threshold (`>=1`), Segment.
+- [x] **Khớp Cadence**: Retention đo theo Weekly Window hoàn toàn tương thích với nhịp tự nhiên ở Phase 2.
+- [x] **NSM đúng công thức 3 thành phần**: Unit of Value + Quality Threshold + Frequency.
+- [x] **Có đủ 2 Counter-metrics**: Bảo vệ trải nghiệm làm bài và chống ảo giác AI.
+- **KẾT LUẬN: ĐỦ ĐIỀU KIỆN QUA GATE 3 ĐỂ SANG PHASE 4.**
 
 ---
 
