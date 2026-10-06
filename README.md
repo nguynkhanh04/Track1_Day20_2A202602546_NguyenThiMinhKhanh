@@ -1,1 +1,267 @@
+# BÁO CÁO BÀI LAB DAY 20: PRODUCT METRICS & RETENTION FRAMEWORK
 
+> **Khóa học / Track**: Track 1 - AI Product Management / Product Metrics  
+> **Họ và tên học viên**: Nguyễn Thị Minh Khánh  
+> **Mã học viên**: 2A202602546  
+> **Dự án lựa chọn**: **StudyMate AI - Trợ lý AI Tóm tắt & Luyện đề Ôn thi Thông minh cho Sinh viên**  
+> **Thời gian thực hiện**: 90 phút  
+
+---
+
+## MỤC LỤC BÀI LÀM
+1. [Phase 0: Chốt phạm vi bài làm (Scope & Context)](#phase-0-chốt-phạm-vi-bài-làm-scope--context)
+2. [Phase 1: Xác định Core Action (Core Action Card)](#phase-1-xác-định-core-action-core-action-card)
+3. [Phase 2: Nature & Natural Cadence Card](#phase-2-nature--natural-cadence-card)
+4. [Phase 3: Hệ thống Metric & Định nghĩa Retention (Metric System & Retention Definition)](#phase-3-hệ-thống-metric--định-nghĩa-retention)
+5. [Phase 4: Thiết kế Product Loop & Minimum Tracking Spec](#phase-4-thiết-kế-product-loop--minimum-tracking-spec)
+6. [Phase 5: Bảng tự soi lỗi (Self-Audit) & AI Support Log](#phase-5-bảng-tự-soi-lỗi-self-audit--ai-support-log)
+
+---
+
+## PHASE 0: CHỐT PHẠM VI BÀI LÀM (SCOPE & CONTEXT)
+
+| Thành phần | Chi tiết định nghĩa |
+| :--- | :--- |
+| **Tên sản phẩm** | **StudyMate AI** (AI Personal Assistant for Students) |
+| **Mô tả ngắn gọn (1 câu)** | Nền tảng trợ lý học tập AI giúp sinh viên biến giáo trình, slide bài giảng phức tạp thành bộ câu hỏi trắc nghiệm & flashcard ôn thi bám sát đề cương chỉ trong 30 giây. |
+| **Target Persona** | **Sinh viên Đại học (Năm 1 – Năm 4)** các khối ngành có khối lượng tài liệu học tập và thi cử lớn (Kinh tế, Kỹ thuật, Y Dược, Luật), thường xuyên bị quá tải trước các kỳ thi giữa kỳ / cuối kỳ. |
+| **Core Job to be Done (JTBD)** | *"Khi tôi có tập tài liệu/slide 60 trang và kỳ thi sắp diễn ra, tôi muốn nhanh chóng nắm được trọng tâm kiến thức và tự kiểm tra mức độ hiểu bài của mình để tự tin đạt điểm cao mà không phải thức trắng đêm đọc vẹt."* |
+| **Use Case chính được chọn** | **Tải lên tài liệu slide bài học $\rightarrow$ AI trích xuất trọng tâm & tạo bộ đề trắc nghiệm $\rightarrow$ Sinh viên thực hiện phiên luyện đề ôn tập (Quiz Session) và nhận giải thích chi tiết.** |
+
+---
+
+## PHASE 1: XÁC ĐỊNH CORE ACTION (CORE ACTION CARD)
+
+### 1. Bảng sàng lọc và phân loại các ứng viên hành vi
+
+| Ứng viên hành vi | Phân loại bản chất | Đánh giá | Quyết định |
+| :--- | :--- | :--- | :--- |
+| **1. Đăng nhập / Mở ứng dụng** | UI / Session Action | Chỉ là thao tác mở app, chưa hề chạm vào bất kỳ giá trị học tập nào. | ❌ Loại |
+| **2. Tải lên tệp tài liệu (PDF/Slide)** | Input Action | Điều kiện cần, nhưng user mới chỉ đưa dữ liệu vào, chưa thu nhận được giá trị. | ❌ Loại |
+| **3. AI tạo đề thi thành công** | System Output | Đây là hành động của hệ thống AI, không phải hành vi tiếp nhận giá trị của người dùng. | ❌ Loại |
+| **4. Bấm nút "Bắt đầu làm bài"** | Intent Action | Ý định bắt đầu, chưa chứng minh người dùng đã học và tiếp thu kiến thức. | ❌ Loại |
+| **5. Hoàn thành trọn vẹn 1 phiên luyện đề ôn thi (Quiz Session) với điểm số $\ge 70\%$** | **Core Value Event (User Core Action)** | **Người dùng thực sự bỏ thời gian tư duy, trả lời câu hỏi và kiểm tra độ hiểu bài thành công.** |  **CHỌN LÀM CORE ACTION** |
+
+### 2. Core Action Card
+
+```
+┌────────────────────────────────────────────────────────────────────────────────────────┐
+│                                   CORE ACTION CARD                                     │
+├────────────────────────────────────────────────────────────────────────────────────────┤
+│ Tên Core Action:                                                                       │
+│   "Hoàn thành phiên luyện đề ôn tập môn học đạt chuẩn (Completed Qualified Quiz Session)"│
+│                                                                                        │
+│ Cú pháp chuẩn hóa:                                                                     │
+│   [Sinh viên] thực hiện [Làm và nộp bài kiểm tra trắc nghiệm/flashcard tối thiểu 5 câu]│
+│   trên [Bộ đề do AI tạo từ tài liệu học tập]                                          │
+│   để đạt được [Điểm số >= 70% hoặc hoàn thành 100% việc giải thích lỗi sai].           │
+│                                                                                        │
+│ Bằng chứng giá trị (Proof of Value):                                                   │
+│   - Người dùng đã hoàn thành việc ôn luyện kiến thức (Active Learning).               │
+│   - Hệ thống trả về kết quả đánh giá điểm mạnh/yếu tức thì kèm giải thích chi tiết.   │
+└────────────────────────────────────────────────────────────────────────────────────────┘
+```
+
+### 3. Gate 1: Tự kiểm tra (Pass Gate 1)
+- [x] **Không phải thao tác UI/Onboarding**: Hoàn toàn là hành vi học tập có chủ đích.
+- [x] **Không phải System Output**: Là tương tác 2 chiều nơi sinh viên trực tiếp tư duy và làm bài.
+- [x] **Gần nhất với Core Value**: Đạt điểm $\ge 70\%$ là bằng chứng rõ ràng nhất cho thấy sinh viên đã nắm được bài học.
+
+---
+
+## PHASE 2: NATURE & NATURAL CADENCE CARD
+
+### 1. Phân tích bản chất nhu cầu (Nature vs Nurture)
+
+```
+                       BẢN CHẤT NHU CẦU HỌC TẬP NGOÀI ĐỜI THỰC
+ ┌──────────────────────────────────────────────────────────────────────────────────┐
+ │ • Lịch học đại học: 2 - 3 buổi học/môn/tuần                                     │
+ │ • Nhịp làm bài tập & chuẩn bị bài trước giờ lên lớp: 1 - 2 lần/tuần/môn          │
+ │ • Nhịp ôn thi định kỳ (Mid-term / Final-term): Đợt cao điểm kéo dài 2-3 tuần     │
+ └──────────────────────────────────────────────────────────────────────────────────┘
+                                          ▼
+ ┌──────────────────────────────────────┐    ┌──────────────────────────────────────┐
+ │          NATURE (Tự nhiên)           │    │          NURTURE (Nuôi dưỡng)        │
+ ├──────────────────────────────────────┤    ├──────────────────────────────────────┤
+ │ Nhu cầu ôn bài tự nhiên xuất hiện     │    │ Gửi thông báo nhắc lịch học trước 24h│
+ │ theo chu kỳ tuần học (Weekly) và      │    │ dựa trên thời khóa biểu của sinh viên│
+ │ trước các đợt kiểm tra trên lớp.      │    │ để gợi ý bộ đề ôn nhanh 5 phút.      │
+ └──────────────────────────────────────┘    └──────────────────────────────────────┘
+```
+
+### 2. Action Nature Card & Kết luận Cadence
+
+```
+┌────────────────────────────────────────────────────────────────────────────────────────┐
+│                              ACTION NATURE CARD                                        │
+├────────────────────────────────────────────────────────────────────────────────────────┤
+│ Tần suất nhu cầu ngoài đời thực:                                                       │
+│   - Trong kỳ học bình thường: 1 - 3 lần / tuần.                                       │
+│   - Trong giai đoạn thi cử: 4 - 6 lần / tuần.                                         │
+│                                                                                        │
+│ Sai lầm cần tránh:                                                                     │
+│   - Không ép "Daily Active User (DAU)" vì sinh viên không phải ngày nào cũng có nhu    │
+│     cầu ôn tập cho cùng một môn học. Việc ép daily sẽ dẫn tới notification spam.       │
+│                                                                                        │
+│ KẾT LUẬN NATURAL CADENCE:                                                              │
+│   ► Cadence chuẩn: WEEKLY (Hàng tuần - Chu kỳ 7 ngày).                                 │
+│   ► Đơn vị đo lường cơ bản: Weekly Active Learner (Sinh viên có >= 1 Qualified Quiz/tuần)│
+└────────────────────────────────────────────────────────────────────────────────────────┘
+```
+
+### 3. Gate 2: Tự kiểm tra (Pass Gate 2)
+- [x] Không ép nhịp Daily khi bản chất sản phẩm là theo lịch học đại học (Weekly).
+- [x] Nurture (thông báo/email) bám sát lịch học thực tế, không bịa ra lý do quay lại giả tạo.
+
+---
+
+## PHASE 3: HỆ THỐNG METRIC & ĐỊNH NGHĨA RETENTION
+
+### 1. Hệ thống chỉ số sản phẩm (Metric Hierarchy)
+
+```
+                            ┌──────────────────────────────────────────────┐
+                            │             NORTH STAR METRIC                │
+                            │  Weekly Qualified Quiz Completions (WQQC)   │
+                            │  (Số phiên luyện đề đạt >=70% xong mỗi tuần) │
+                            └──────────────────────┬───────────────────────┘
+                                                   │
+                ┌──────────────────────────────────┴──────────────────────────────────┐
+                ▼                                                                     ▼
+   ┌─────────────────────────┐                                           ┌─────────────────────────┐
+   │    ACTIVATION METRIC    │                                           │    ENGAGEMENT METRIC    │
+   │ % User mới hoàn thành   │                                           │ Số phiên ôn/User/Tuần   │
+   │ 1st Qualified Quiz <=48h│                                           │ & Thời gian làm bài/Quiz│
+   └────────────┬────────────┘                                           └────────────┬────────────┘
+                │                                                                     │
+                ▼                                                                     ▼
+   ┌─────────────────────────┐                                           ┌─────────────────────────┐
+   │   LEADING INDICATORS    │                                           │     COUNTER-METRIC      │
+   │ • % User upload doc D0  │                                           │ • Quiz Drop-off Rate    │
+   │ • % Click "Luyện đề ngay│                                           │ • AI Error Report Rate  │
+   └─────────────────────────┘                                           └─────────────────────────┘
+```
+
+| Loại chỉ số | Tên chỉ số | Công thức / Định nghĩa chi tiết | Mục đích theo dõi |
+| :--- | :--- | :--- | :--- |
+| **North Star Metric** | **Weekly Qualified Quiz Completions (WQQC)** | $\sum (\text{Số phiên làm bài hoàn thành có điểm } \ge 70\% \text{ trong 7 ngày})$ | Đo lường tổng giá trị học tập thực tế mà sản phẩm mang lại cho toàn bộ sinh viên trong tuần. |
+| **Activation Metric** | **48h First-Quiz Completion Rate** | $\frac{\text{Số user mới hoàn thành 1st Quiz } \ge 70\% \text{ trong 48h}}{\text{Tổng số user mới đăng ký}} \times 100\%$ | Đo lường hiệu quả dẫn dắt người dùng mới chạm tới "Aha Moment" đầu tiên. |
+| **Engagement Metric** | **Weekly Quiz Frequency per Active User** | $\frac{\text{Tổng số Qualified Quiz hoàn thành trong tuần}}{\text{Số lượng Weekly Active Users}}$ | Đo lường mức độ gắn kết sâu và thói quen ôn tập của sinh viên. |
+| **Leading Indicator 1** | **D0 Document Upload Rate** | % người dùng mới tải lên ít nhất 1 tài liệu học tập trong vòng 2 giờ đầu sau khi tạo tài khoản. | Dự báo khả năng đạt Activation. |
+| **Leading Indicator 2** | **AI Quiz Generation-to-Start Rate** | % số bộ đề AI tạo ra được người dùng bấm "Bắt đầu làm bài" trong vòng 10 phút. | Đo độ hấp dẫn và mức độ phù hợp của đề thi do AI gợi ý. |
+| **Counter-Metric 1** | **Quiz Abandonment Rate (Tỉ lệ bỏ dở)** | % phiên làm bài bị người dùng thoát ra trước khi trả lời được 50% số câu hỏi. | Cảnh báo: Đề quá khó, AI tạo câu hỏi lan man hoặc giao diện gây ức chế. |
+| **Counter-Metric 2** | **AI Hallucination / Question Error Report Rate** | $\frac{\text{Số câu hỏi bị bấm 'Báo lỗi kiến thức'}}{\text{Tổng số câu hỏi được sinh ra}} \times 100\%$ (Ngưỡng an toàn: $\le 2\%$) | Đảm bảo uy tín học thuật của AI; ngăn chặn việc tối ưu số lượng đề nhưng nội dung sai lệch. |
+
+---
+
+### 2. Định nghĩa Retention chuẩn 6 thành phần (Metric Definition Contract)
+
+```
+┌────────────────────────────────────────────────────────────────────────────────────────┐
+│                        RETENTION DEFINITION CONTRACT (6 THÀNH PHẦN)                    │
+├────────────────────────────────────────────────────────────────────────────────────────┤
+│ 1. UNIT (Đối tượng được đếm):                                                          │
+│    ► User Account duy nhất (distinct user_id của sinh viên).                           │
+│                                                                                        │
+│ 2. COHORT ENTRY EVENT (Sự kiện vào nhóm):                                              │
+│    ► Hoàn thành hành vi Activation: Lần đầu tiên submit bài kiểm tra đạt chuẩn         │
+│      (quiz_completed với score >= 70%) trong vòng 48h sau đăng ký.                     │
+│                                                                                        │
+│ 3. RETURN EVENT (Hành vi quay lại được công nhận):                                     │
+│    ► Bắt buộc là CORE ACTION: Thực hiện ít nhất 1 phiên quiz_completed với             │
+│      score >= 70% (Tuyệt đối KHÔNG tính hành vi mở app hoặc đăng nhập).                │
+│                                                                                        │
+│ 4. WINDOW (Khung thời gian đo):                                                        │
+│    ► Weekly Cohort Retention (W1, W2, W3, W4, W8, W12) - Mỗi window = 7 ngày liên tiếp.│
+│                                                                                        │
+│ 5. THRESHOLD (Ngưỡng đạt chuẩn trong Window):                                          │
+│    ► Tần suất tối thiểu: >= 1 lần hoàn thành Qualified Quiz trong window 7 ngày đó.    │
+│                                                                                        │
+│ 6. SEGMENT (Phân khúc phân tích chuyên sâu):                                           │
+│    ► Phân khúc theo Khối ngành: STEM / Y Dược vs. Kinh tế / Xã hội.                    │
+│    ► Phân khúc theo Gói sử dụng: Free Learner vs. Pro Subscriber.                       │
+│    ► Phân khúc theo Kênh tiếp cận: Tự đăng ký vs. Được mời qua Shared Quiz Link.       │
+└────────────────────────────────────────────────────────────────────────────────────────┘
+```
+
+### 3. Gate 3: Tự kiểm tra (Pass Gate 3)
+- [x] **Đủ 6 thành phần**: Unit, Cohort Entry, Return Event, Window, Threshold, Segment.
+- [x] **Return Event là Core Action**: Đã gắn chặt với `quiz_completed (score >= 70%)`, không dùng `app_opened`.
+- [x] **Window khớp Cadence**: Dùng Weekly Window (W1..W12) khớp 100% với nhịp học tập tự nhiên.
+
+---
+
+## PHASE 4: THIẾT KẾ PRODUCT LOOP & MINIMUM TRACKING SPEC
+
+### 1. Thiết kế Product Loop (2 chu kỳ liên hoàn)
+
+```mermaid
+graph TD
+    subgraph "VÒNG LẶP 1: CÁ NHÂN HÓA HỌC TẬP (Habit Loop)"
+        T1["1. TRIGGER<br/>• Bên trong: Lo lắng trước bài kiểm tra<br/>• Bên ngoài: Thông báo nhắc ôn bài"] --> A1["2. ACTION (Core Action)<br/>Làm bài Quiz 5 phút trên tài liệu"]
+        A1 --> R1["3. REWARD (Giá trị cốt lõi)<br/>Biết ngay điểm số + Lời giải chi tiết<br/>Giải tỏa âu lo thi cử"]
+        R1 --> I1["4. INVESTMENT<br/>Lưu câu sai vào 'Sổ tay sửa lỗi'<br/>Hệ thống học điểm yếu của user"]
+        I1 -.->|"Tạo trigger thông minh hơn"| T1
+    end
+
+    subgraph "VÒNG LẶP 2: LAN TỎA NHÓM LỚP (Growth Loop)"
+        R1 ==>|"Cảm thấy đề thi quá sát thực tế"| A2["5. SHARE ACTION<br/>Chia sẻ link đề ôn cho bạn cùng lớp"]
+        A2 --> T2["6. PEER TRIGGER<br/>Bạn bè nhận link & vào thi thử"]
+        T2 --> A3["7. PEER ACTION<br/>Bạn bè làm bài & xem Bảng xếp hạng"]
+        A3 --> I2["8. PEER INVESTMENT<br/>Bạn bè upload thêm đề thi mới vào kho chung"]
+        I2 -.->|"Làm giàu kho đề cho sinh viên ban đầu"| T1
+    end
+```
+
+### 2. Metric Hypothesis (Giả thuyết kiểm chứng vòng lặp)
+
+> **Câu giả thuyết (Metric Hypothesis):**  
+> *"Nếu chúng ta triển khai tính năng **'Chia sẻ bộ đề thi thử kèm Bảng xếp hạng điểm nhóm' (Collaborative Quiz Loop)**, thì tỷ lệ **W2 Retention** của sinh viên thuộc nhóm học tập sẽ cao hơn nhóm học đơn lẻ ít nhất **30%**, đồng thời chỉ số **North Star Metric (WQQC)** trung bình trên mỗi người dùng sẽ tăng từ **2.2 lên 3.8 lượt/tuần** trong vòng 60 ngày thử nghiệm."*
+
+---
+
+### 3. Bảng yêu cầu Tracking tối thiểu (Minimum Tracking Spec: 6 Events)
+
+| STT | Tên Event (`event_name`) | Trigger (Bắn ra khi nào?) | Parameters / Properties quan trọng | Map về Metric nào trong hệ thống? |
+| :---: | :--- | :--- | :--- | :--- |
+| **1** | `user_signed_up` | Sinh viên hoàn tất đăng ký tài khoản mới thành công. | `user_id`, `signup_method` (Google, Email), `university`, `major`, `timestamp` | Baseline tính mẫu số cho **Activation Rate** & Cohort Size. |
+| **2** | `document_uploaded` | Tệp tài liệu học tập tải lên và parse thành công. | `user_id`, `doc_id`, `file_type` (PDF, PPTX, DOCX), `file_size_mb`, `page_count` | **Leading Indicator 1** (D0 Document Upload Rate). |
+| **3** | `quiz_generated` | Hệ thống AI hoàn thành việc tạo bộ câu hỏi từ tài liệu. | `user_id`, `doc_id`, `quiz_id`, `question_count`, `difficulty_level`, `ai_model` | Đánh giá năng lực của AI & sẵn sàng cho làm bài. |
+| **4** | `quiz_started` | Sinh viên bấm nút "Bắt đầu làm bài" vào câu số 1. | `user_id`, `quiz_id`, `source` (own_doc, shared_link), `timestamp` | **Leading Indicator 2** & Mẫu số tính **Quiz Abandonment Rate**. |
+| **5** | `quiz_completed` | Sinh viên bấm nộp bài và nhận bảng điểm tổng kết. | `user_id`, `quiz_id`, `total_questions`, `correct_answers`, `score_percent`, `duration_seconds`, `is_qualified` (true nếu score $\ge 70\%$) | **CORE ACTION EVENT** $\rightarrow$ Tính **North Star (WQQC)**, **Activation**, **Retention (Return Event)**. |
+| **6** | `quiz_shared` | Sinh viên bấm copy link hoặc gửi đề thi cho bạn bè. | `user_id`, `quiz_id`, `platform` (Zalo, Messenger, Copy Link), `share_count` | Đo lường hiệu quả của **Growth Loop (Collaborative Loop)**. |
+| **7** | `question_error_reported` | Sinh viên bấm nút "Báo lỗi câu hỏi" (AI hallucination). | `user_id`, `quiz_id`, `question_id`, `error_type` (sai đáp án, câu hỏi tối nghĩa) | **Counter-Metric 2** (AI Error Report Rate). |
+
+### 4. Gate 4: Tự kiểm tra (Pass Gate 4)
+- [x] **Tất cả event đều map 1-1 về chỉ số cụ thể**: Không có event thừa thãi chỉ để "track cho vui".
+- [x] **Đầy đủ trigger & parameters**: Có trường `is_qualified` / `score_percent` để lọc đúng Core Value Event.
+
+---
+
+## PHASE 5: BẢNG TỰ SOI LỖI (SELF-AUDIT) & AI SUPPORT LOG
+
+### 1. Bảng đối chiếu 9 Lỗi kinh điển trong Product Metrics
+
+| Lỗi kinh điển cần tránh | Trạng thái bài làm | Minh chứng cụ thể trong bài làm |
+| :--- | :---: | :--- |
+| **1. Chọn core action vì dễ track hoặc chọn output của hệ thống** |  **ĐÃ TRÁNH** | Chọn hành vi người dùng làm bài đạt $\ge 70\%$ điểm (`quiz_completed`), không chọn `quiz_generated` (output của AI). |
+| **2. Xem hoàn thành onboarding / đăng nhập là activation** |  **ĐÃ TRÁNH** | Activation bắt buộc phải là: Hoàn thành Qualified Quiz đầu tiên $\le 48h$. |
+| **3. Ép frequency cao hơn nhu cầu thật (ép Daily)** |  **ĐÃ TRÁNH** | Chọn chuẩn **Weekly Cadence** theo nhịp môn học đại học, không đo DAU gượng ép. |
+| **4. Dùng notification làm reason to return của loop** |  **ĐÃ TRÁNH** | Reason to return là nhu cầu vượt qua kỳ thi và giải tỏa âu lo (Internal Trigger) kết hợp đầu tư sổ tay câu sai (Investment). |
+| **5. Dùng một metric cho mọi cadence (D7 cho nhịp tháng)** |  **ĐÃ TRÁNH** | Thiết lập hệ thống Weekly Cohorts (W1, W2, W4, W8) khớp nhịp 7 ngày. |
+| **6. Viết "D7 retention" thiếu 6 thành phần** |  **ĐÃ TRÁNH** | Viết trọn vẹn hợp đồng Retention: Unit, Cohort Entry, Return Event, Window, Threshold, Segment. |
+| **7. Track mọi click không map về câu hỏi sản phẩm nào** |  **ĐÃ TRÁNH** | Tối giản đúng 7 events trọng tâm, mỗi event map trực tiếp về 1 chỉ số cụ thể. |
+| **8. Có metric nhưng không có event, trigger, identity để tính** |  **ĐÃ TRÁNH** | Bảng tracking quy định rõ `event_name`, `trigger`, và `parameters` (`user_id`, `score_percent`...). |
+| **9. Viết core action mơ hồ kiểu "sử dụng sản phẩm"** |  **ĐÃ TRÁNH** | Định nghĩa hành động có định lượng rõ: Làm $\ge 5$ câu trắc nghiệm từ tài liệu đạt $\ge 70\%$. |
+
+---
+
+### 2. AI Support Log (Nhật ký sử dụng trợ lý AI)
+
+* **Phạm vi dùng AI**: Brainstorm danh sách các ứng viên Core Action, gợi ý các biến số Counter-metric và chuẩn hóa định dạng Markdown/Mermaid theo tiêu chuẩn của bài Lab.
+* **Quyết định của tác giả (PM)**:
+  - Tự lựa chọn và bảo vệ Use Case: Trợ lý luyện đề thi thay vì chỉ là công cụ tóm tắt văn bản thông thường.
+  - Tự chốt Natural Cadence là **Weekly** dựa trên lịch học giảng đường đại học Việt Nam.
+  - Tự thiết lập ngưỡng chất lượng **Score $\ge 70\%$** cho Qualified Action.
+  - Tự xây dựng cấu trúc giả thuyết vòng lặp sinh viên chia sẻ đề cho nhóm lớp.

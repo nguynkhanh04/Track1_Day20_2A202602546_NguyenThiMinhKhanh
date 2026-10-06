@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StudyMate AI - Product Metrics & Retention Framework | Day 20 Lab</title>
+  <!-- Google Fonts & FontAwesome -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Mermaid for diagrams -->
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+  <script>mermaid.initialize({ startOnLoad: true, theme: 'dark', themeVariables: { primaryColor: '#6366f1', edgeColor: '#818cf8', primaryTextColor: '#f8fafc' } });</script>
+
+  <style>
+    :root {
+      --bg-base: #090d16;
+      --bg-surface: #111827;
+      --bg-card: #1e293b;
+      --bg-glass: rgba(30, 41, 59, 0.7);
+      --border-color: rgba(255, 255, 255, 0.08);
+      --border-highlight: rgba(99, 102, 241, 0.3);
+      --primary: #6366f1;
+      --primary-light: #818cf8;
+      --primary-glow: rgba(99, 102, 241, 0.25);
+      --accent: #06b6d4;
+      --success: #10b981;
+      --warning: #f59e0b;
+      --danger: #ef4444;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --font-main: 'Plus Jakarta Sans', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: var(--bg-base);
+      color: var(--text-main);
+      font-family: var(--font-main);
+      line-height: 1.6;
+      overflow-x: hidden;
+      background-image: 
+        radial-gradient(circle at 10% 20%, rgba(99, 102, 241, 0.12) 0%, transparent 40%),
+        radial-gradient(circle at 90% 80%, rgba(6, 182, 212, 0.1) 0%, transparent 40%);
+    }
+
+    /* Header & Hero */
+    header {
+      border-bottom: 1px solid var(--border-color);
+      background: var(--bg-glass);
+      backdrop-filter: blur(12px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      padding: 1rem 2rem;
+    }
+
+    .header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-logo {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      color: white;
+      box-shadow: 0 0 15px var(--primary-glow);
+    }
+
+    .brand-text h1 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .brand-text p {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .student-badge {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-color);
+      padding: 0.4rem 0.9rem;
+      border-radius: 50px;
+      font-size: 0.85rem;
+    }
+
+    .student-badge i {
+      color: var(--primary-light);
+    }
+
+    /* Container */
+    .container {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 1.5rem;
+    }
+
+    /* Quick Navigation Tabs */
+    .nav-tabs {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 12px;
+      margin-bottom: 2rem;
+      border-bottom: 1px solid var(--border-color);
+      scrollbar-width: thin;
+    }
+
+    .nav-btn {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      color: var(--text-muted);
+      padding: 0.6rem 1.1rem;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+      text-decoration: none;
+    }
+
+    .nav-btn:hover, .nav-btn.active {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary-light);
+      box-shadow: 0 0 12px var(--primary-glow);
+    }
+
+    /* Section Cards */
+    .phase-section {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 2rem;
+      margin-bottom: 2.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .phase-section::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+    }
+
+    .phase-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .phase-title-wrap {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .phase-pill {
+      background: rgba(99, 102, 241, 0.15);
+      color: var(--primary-light);
+      border: 1px solid var(--border-highlight);
+      padding: 0.3rem 0.75rem;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .phase-title {
+      font-size: 1.45rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .time-badge {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-color);
+      color: var(--text-muted);
+      padding: 0.3rem 0.75rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* Grid & Flex Utilities */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1.5rem;
+      margin-top: 1rem;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.25rem;
+      margin-top: 1rem;
+    }
+
+    /* Cards */
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 1.4rem;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+
+    .card:hover {
+      border-color: var(--border-highlight);
+      transform: translateY(-2px);
+    }
+
+    .card-title {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--primary-light);
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Highlight Box / Card Special */
+    .highlight-card {
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(6, 182, 212, 0.05));
+      border: 1px solid var(--border-highlight);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin: 1.25rem 0;
+    }
+
+    .core-action-box {
+      background: rgba(16, 185, 129, 0.08);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin: 1rem 0;
+    }
+
+    /* Tables */
+    .table-container {
+      overflow-x: auto;
+      margin: 1.25rem 0;
+      border-radius: 10px;
+      border: 1px solid var(--border-color);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+      text-align: left;
+    }
+
+    th {
+      background: rgba(255, 255, 255, 0.04);
+      padding: 0.9rem 1.1rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    td {
+      padding: 0.9rem 1.1rem;
+      border-bottom: 1px solid var(--border-color);
+      color: var(--text-main);
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    tr:hover td {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .tag {
+      display: inline-block;
+      padding: 0.2rem 0.55rem;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      font-family: var(--font-mono);
+    }
+
+    .tag-success { background: rgba(16, 185, 129, 0.2); color: #34d399; }
+    .tag-danger { background: rgba(239, 68, 68, 0.2); color: #f87171; }
+    .tag-warning { background: rgba(245, 158, 11, 0.2); color: #fbbf24; }
+    .tag-primary { background: rgba(99, 102, 241, 0.2); color: #a5b4fc; }
+
+    /* Gate Checkbox Card */
+    .gate-box {
+      background: rgba(16, 185, 129, 0.05);
+      border: 1px dashed rgba(16, 185, 129, 0.4);
+      border-radius: 10px;
+      padding: 1.25rem;
+      margin-top: 1.5rem;
+    }
+
+    .gate-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      color: var(--success);
+      margin-bottom: 0.75rem;
+      font-size: 0.95rem;
+    }
+
+    .gate-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.88rem;
+      color: var(--text-main);
+      margin-bottom: 0.4rem;
+    }
+
+    .gate-item i {
+      color: var(--success);
+    }
+
+    /* Mermaid diagrams container */
+    .mermaid-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin: 1.5rem 0;
+      display: flex;
+      justify-content: center;
+    }
+
+    /* Metric Cards */
+    .metric-hero {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 2rem;
+      background: linear-gradient(180deg, rgba(99, 102, 241, 0.15), rgba(30, 41, 59, 0.6));
+      border: 1px solid var(--border-highlight);
+      border-radius: 14px;
+      margin: 1.5rem 0;
+    }
+
+    .metric-value {
+      font-size: 2.2rem;
+      font-weight: 800;
+      background: linear-gradient(90deg, #a5b4fc, #38bdf8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin: 0.5rem 0;
+    }
+
+    .metric-formula {
+      font-family: var(--font-mono);
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      background: rgba(0, 0, 0, 0.3);
+      padding: 0.4rem 0.8rem;
+      border-radius: 6px;
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--border-color);
+      padding: 2rem;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+
+    /* Code block */
+    code {
+      font-family: var(--font-mono);
+      background: rgba(255, 255, 255, 0.08);
+      padding: 0.15rem 0.4rem;
+      border-radius: 4px;
+      font-size: 0.85em;
+      color: #38bdf8;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="header-inner">
+      <div class="brand">
+        <div class="brand-logo">
+          <i class="fa-solid fa-graduation-cap"></i>
+        </div>
+        <div class="brand-text">
+          <h1>StudyMate AI · Product Metrics Framework</h1>
+          <p>Báo cáo Bài Lab Day 20 - North Star, Retention & Product Loop</p>
+        </div>
+      </div>
+      <div class="student-badge">
+        <i class="fa-solid fa-user-graduate"></i>
+        <span><strong>Nguyễn Thị Minh Khánh</strong> · Mã HV: <code>2A202602546</code></span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <div class="container">
+
+    <!-- Quick Navigation Bar -->
+    <div class="nav-tabs">
+      <a href="#p0" class="nav-btn"><i class="fa-solid fa-crosshairs"></i> Phase 0: Phạm vi</a>
+      <a href="#p1" class="nav-btn"><i class="fa-solid fa-bolt"></i> Phase 1: Core Action</a>
+      <a href="#p2" class="nav-btn"><i class="fa-solid fa-leaf"></i> Phase 2: Nature & Cadence</a>
+      <a href="#p3" class="nav-btn"><i class="fa-solid fa-chart-line"></i> Phase 3: Metric System & Retention</a>
+      <a href="#p4" class="nav-btn"><i class="fa-solid fa-repeat"></i> Phase 4: Product Loop & Tracking</a>
+      <a href="#p5" class="nav-btn"><i class="fa-solid fa-circle-check"></i> Phase 5: Self-Audit & Log</a>
+    </div>
+
+    <!-- ==================== PHASE 0 ==================== -->
+    <section id="p0" class="phase-section">
+      <div class="phase-header">
+        <div class="phase-title-wrap">
+          <span class="phase-pill">Phase 0</span>
+          <h2 class="phase-title">Chốt Phạm Vi Bài Làm (Scope & Context)</h2>
+        </div>
+        <div class="time-badge"><i class="fa-regular fa-clock"></i> 10 phút</div>
+      </div>
+
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-title"><i class="fa-solid fa-cube"></i> Thông tin sản phẩm & Persona</div>
+          <p><strong>Tên sản phẩm:</strong> StudyMate AI</p>
+          <p style="margin-top: 6px; color: var(--text-muted);">Trợ lý học tập AI giúp sinh viên đại học biến giáo trình, slide bài giảng phức tạp thành bộ câu hỏi trắc nghiệm & flashcard ôn thi bám sát đề cương trong 30 giây.</p>
+          <div style="margin-top: 12px;">
+            <span class="tag tag-primary">Target Persona</span>
+            <p style="margin-top: 4px; font-size: 0.9rem;"><strong>Sinh viên Đại học (Năm 1 – 4)</strong> các ngành Kinh tế, Kỹ thuật, Y Dược, Luật có khối lượng tài liệu học tập khổng lồ và áp lực thi cử cao.</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title"><i class="fa-solid fa-bullseye"></i> Core Job-to-be-Done (JTBD)</div>
+          <p style="font-style: italic; color: #cbd5e1; background: rgba(0,0,0,0.25); padding: 0.9rem; border-radius: 8px; border-left: 3px solid var(--accent);">
+            "Khi tôi có tập tài liệu/slide 60 trang và kỳ thi sắp tới, tôi muốn nhanh chóng nắm được trọng tâm kiến thức và tự kiểm tra mức độ hiểu bài của mình để tự tin đạt điểm cao mà không phải thức trắng đêm đọc vẹt."
+          </p>
+          <div style="margin-top: 10px; font-size: 0.88rem;">
+            <strong>Use Case chính:</strong> Upload slide $\rightarrow$ AI tạo đề ôn $\rightarrow$ <strong>Sinh viên làm bài test kiểm tra & nhận giải thích lỗi sai</strong>.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== PHASE 1 ==================== -->
+    <section id="p1" class="phase-section">
+      <div class="phase-header">
+        <div class="phase-title-wrap">
+          <span class="phase-pill">Phase 1</span>
+          <h2 class="phase-title">Xác Định Core Action (Core Action Card)</h2>
+        </div>
+        <div class="time-badge"><i class="fa-regular fa-clock"></i> 15 phút</div>
+      </div>
+
+      <p style="color: var(--text-muted); margin-bottom: 1rem;">Phân tích các ứng viên hành vi để tách bạch giữa Thao tác UI, Output của AI và Hành vi nhận giá trị cốt lõi của Người dùng:</p>
+
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Ứng viên hành vi</th>
+              <th>Phân loại bản chất</th>
+              <th>Đánh giá giá trị</th>
+              <th>Quyết định</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>1. Đăng nhập / Mở ứng dụng</strong></td>
+              <td><span class="tag tag-warning">UI / Session</span></td>
+              <td>Chỉ mở app, chưa hề chạm vào bất kỳ giá trị học tập nào.</td>
+              <td><span class="tag tag-danger">Loại ❌</span></td>
+            </tr>
+            <tr>
+              <td><strong>2. Tải lên tệp PDF/Slide bài giảng</strong></td>
+              <td><span class="tag tag-warning">Input Action</span></td>
+              <td>Điều kiện cần, nhưng mới chỉ nạp dữ liệu, chưa nhận giá trị.</td>
+              <td><span class="tag tag-danger">Loại ❌</span></td>
+            </tr>
+            <tr>
+              <td><strong>3. AI tạo xong bộ đề trắc nghiệm</strong></td>
+              <td><span class="tag tag-primary">System Output</span></td>
+              <td>Hệ thống làm việc, chưa chứng minh sinh viên đã học.</td>
+              <td><span class="tag tag-danger">Loại ❌</span></td>
+            </tr>
+            <tr>
+              <td><strong>4. Hoàn thành phiên luyện đề (Quiz) đạt $\ge 70\%$ điểm</strong></td>
+              <td><span class="tag tag-success">Core Value Event</span></td>
+              <td>Sinh viên trực tiếp tư duy, làm bài và kiểm chứng mức độ hiểu bài.</td>
+              <td><span class="tag tag-success">CHỌN LÀM CORE ACTION </span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Core Action Card Box -->
+      <div class="core-action-box">
+        <div style="display: flex; align-items: center; gap: 8px; color: var(--success); font-weight: 700; margin-bottom: 8px;">
+          <i class="fa-solid fa-award"></i> CORE ACTION CARD CHUẨN HÓA
+        </div>
+        <h3 style="font-size: 1.15rem; margin-bottom: 8px;">"Hoàn thành phiên luyện đề ôn tập môn học đạt chuẩn (Qualified Quiz Completion)"</h3>
+        <p style="font-size: 0.95rem; color: #cbd5e1;">
+          <strong>Cú pháp chuẩn:</strong> <code>[Sinh viên]</code> thực hiện <code>[Làm và nộp bài kiểm tra trắc nghiệm tối thiểu 5 câu]</code> trên <code>[Bộ đề do AI tạo từ tài liệu học tập]</code> để đạt được <code>[Điểm số >= 70% hoặc hoàn thành 100% việc xem giải thích lỗi sai]</code>.
+        </p>
+      </div>
+
+      <!-- Gate 1 -->
+      <div class="gate-box">
+        <div class="gate-header"><i class="fa-solid fa-square-check"></i> GATE 1: KIỂM TRA ĐIỀU KIỆN CORE ACTION</div>
+        <div class="gate-item"><i class="fa-solid fa-check"></i> <span>Không phải thao tác UI / Onboarding / Login (Hành động học tập thực tế).</span></div>
+        <div class="gate-item"><i class="fa-solid fa-check"></i> <span>Không phải System Output (Đòi hỏi tương tác và tư duy của người học).</span></div>
+        <div class="gate-item"><i class="fa-solid fa-check"></i> <span>Bằng chứng giá trị (Proof of Value) rõ ràng: Đạt $\ge 70\%$ chứng minh đã nắm được kiến thức.</span></div>
+      </div>
+    </section>
+
+    <!-- ==================== PHASE 2 ==================== -->
+    <section id="p2" class="phase-section">
+      <div class="phase-header">
+        <div class="phase-title-wrap">
+          <span class="phase-pill">Phase 2</span>
+          <h2 class="phase-title">Nature & Natural Cadence</h2>
+        </div>
+        <div class="time-badge"><i class="fa-regular fa-clock"></i> 15 phút</div>
+      </div>
+
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-title"><i class="fa-solid fa-tree"></i> NATURE (Bản chất nhu cầu tự nhiên)</div>
+          <p style="font-size: 0.9rem; color: var(--text-muted);">Nhu cầu học và ôn tập của sinh viên gắn liền với thời khóa biểu trường đại học (2-3 buổi học/tuần) và kỳ thi định kỳ (Mid-term, Final-term).</p>
+          <ul style="margin: 10px 0 0 20px; font-size: 0.88rem;">
+            <li>Trong kỳ học: 1 - 3 lần / tuần.</li>
+            <li>Giai đoạn ôn thi nước rút: 4 - 6 lần / tuần.</li>
+            <li><strong>Không ép Daily</strong>: Sinh viên không có nhu cầu ôn cùng 1 môn học mỗi ngày.</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <div class="card-title"><i class="fa-solid fa-seedling"></i> NURTURE (Tác động nuôi dưỡng)</div>
+          <p style="font-size: 0.9rem; color: var(--text-muted);">Sản phẩm hỗ trợ khuếch đại nhịp tự nhiên, tuyệt đối không spam notification giả tạo.</p>
+          <ul style="margin: 10px 0 0 20px; font-size: 0.88rem;">
+            <li>Gửi email/push nhắc ôn trước buổi học 24h theo thời khóa biểu.</li>
+            <li>Gợi ý bộ đề 5 phút từ slide bài học sinh viên đã tải lên.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="highlight-card" style="margin-top: 1.25rem;">
+        <div style="font-weight: 700; color: var(--accent); margin-bottom: 6px;"><i class="fa-solid fa-calendar-check"></i> KẾT LUẬN NATURAL CADENCE</div>
+        <p style="font-size: 0.95rem;">
+          ► <strong>Chu kỳ chuẩn: WEEKLY (Hàng tuần - 7 ngày)</strong>.<br/>
+          ► Đơn vị đo lường hành vi: <strong>Weekly Active Learner</strong> (Sinh viên có $\ge 1$ phiên luyện đề đạt chuẩn trong tuần).
+        </p>
+      </div>
+
+      <!-- Gate 2 -->
+      <div class="gate-box">
+        <div class="gate-header"><i class="fa-solid fa-square-check"></i> GATE 2: KIỂM TRA ĐIỀU KIỆN CADENCE</div>
+        <div class="gate-item"><i class="fa-solid fa-check"></i> <span>Không ép nhịp Daily cho bài toán học tập theo tín chỉ đại học.</span></div>
+        <div class="gate-item"><i class="fa-solid fa-check"></i> <span>Nurture tôn trọng và bám sát nhịp tự nhiên (Nature-first).</span></div>
+      </div>
+    </section>
+
+    <!-- ==================== PHASE 3 ==================== -->
+    <section id="p3" class="phase-section">
+      <div class="phase-header">
+        <div class="phase-title-wrap">
+          <span class="phase-pill">Phase 3</span>
+          <h2 class="phase-title">Metric System & Định Nghĩa Retention 6 Thành Phần</h2>
+        </div>
+        <div class="time-badge"><i class="fa-regular fa-clock"></i> 25 phút</div>
+      </div>
+
+      <!-- North Star Metric Showcase -->
+      <div class="metric-hero">
+        <span class="tag tag-primary" style="margin-bottom: 6px;">NORTH STAR METRIC (NSM)</span>
+        <div class="metric-value">Weekly Qualified Quiz Completions (WQQC)</div>
+        <div class="metric-formula">WQQC = Tổng số phiên luyện đề hoàn thành với Điểm số &ge; 70% trong 7 ngày</div>
+        <p style="color: var(--text-muted); font-size: 0.85rem; margin-top: 8px;">
+          Gồm đủ 3 yếu tố: <strong>Unit of Value</strong> (Quiz hoàn thành) + <strong>Quality Threshold</strong> (&ge;70% điểm) + <strong>Frequency</strong> (Weekly).
+        </p>
+      </div>
+
+      <!-- Metric Table -->
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Phân loại Metric</th>
+              <th>Tên chỉ số</th>
+              <th>Công thức định nghĩa</th>
+              <th>Mục đích kiểm soát</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="tag tag-primary">Activation</span></td>
+              <td><strong>48h 1st Quiz Completion Rate</strong></td>
+              <td>% User mới hoàn thành 1st Quiz $\ge 70\%$ trong vòng 48h sau đăng ký.</td>
+              <td>Đo lường tỉ lệ chạm tới "Aha Moment" đầu tiên.</td>
+            </tr>
+            <tr>
+              <td><span class="tag tag-success">Engagement</span></td>
+              <td><strong>Weekly Quiz Frequency</strong></td>
+              <td>$\frac{\text{Tổng số Qualified Quizzes}}{\text{Weekly Active Users}}$</td>
+              <td>Đo mức độ gắn kết sâu và thói quen ôn tập hàng tuần.</td>
+            </tr>
+            <tr>
+              <td><span class="tag tag-warning">Leading Indicator</span></td>
+              <td><strong>D0 Document Upload Rate</strong></td>
+              <td>% User mới upload $\ge 1$ tài liệu học trong 2h đầu tiên.</td>
+              <td>Dự báo sớm khả năng đạt Activation.</td>
+            </tr>
+            <tr>
+              <td><span class="tag tag-danger">Counter-Metric 1</span></td>
+              <td><strong>Quiz Abandonment Rate</strong></td>
+              <td>% Phiên làm bài bị thoát trước khi làm được 50% số câu.</td>
+              <td>Cảnh báo đề thi quá khó, AI lan man hoặc UI gây ức chế.</td>
+            </tr>
+            <tr>
+              <td><span class="tag tag-danger">Counter-Metric 2</span></td>
+              <td><strong>AI Error Report Rate</strong></td>
+              <td>$\frac{\text{Số câu bị báo lỗi kiến thức}}{\text{Tổng câu hỏi AI tạo}} \times 100\%$ (Ngưỡng: $\le 2\%$)</td>
+              <td>Bảo vệ uy tín học thuật; ngăn ngừa AI ảo giác/sai kiến thức.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Retention Definition Contract (6 Elements) -->
+      <div class="highlight-card" style="border-color: rgba(6, 182, 212, 0.4); background: rgba(6, 182, 212, 0.04);">
+        <div style="font-weight: 700; color: var(--accent); font-size: 1.1rem; margin-bottom: 12px;">
+          <i class="fa-solid fa-file-contract"></i> HỢP ĐỒNG ĐỊNH NGHĨA RETENTION (6 THÀNH PHẦN BẮT BUỘC)
+        </div>
+        <div class="grid-3">
+          <div class="card">
+            <strong style="color: #38bdf8;">1. Unit (Đối tượng đếm):</strong>
+            <p style="font-size: 0.85rem; margin-top: 4px;">User Account duy nhất (distinct <code>user_id</code> của sinh viên).</p>
+          </div>
+          <div class="card">
+            <strong style="color: #38bdf8;">2. Cohort Entry Event:</strong>
+            <p style="font-size: 0.85rem; margin-top: 4px;">Hoàn thành Qualified Quiz đầu tiên ($\le 48h$ sau đăng ký).</p>
+          </div>
+          <div class="card">
+            <strong style="color: #38bdf8;">3. Return Event:</strong>
+            <p style="font-size: 0.85rem; margin-top: 4px;"><strong>Bắt buộc là Core Action:</strong> <code>quiz_completed</code> với score $\ge 70\%$.</p>
+          </div>
+          <div class="card">
+            <strong style="color: #38bdf8;">4. Window (Cadence):</strong>
+            <p style="font-size: 0.85rem; margin-top: 4px;">Weekly rolling cohorts (W1, W2, W4, W8) – Khung 7 ngày liên tiếp.</p>
+          </div>
+          <div class="card">
+            <strong style="color: #38bdf8;">5. Threshold:</strong>
+            <p style="font-size: 0.85rem; margin-top: 4px;">Tần suất $\ge 1$ lần Qualified Quiz hoàn thành trong window 7 ngày.</p>
+          </div>
+          <div class="card">
+            <strong style="color: #38bdf8;">6. Segment:</strong>
+            <p style="font-size: 0.85rem; margin-top: 4px;">STEM vs Kinh tế; Free vs Pro; Tự đăng ký vs Mời qua link.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Gate 3 -->
+      <div class="gate-box">
+        <div class="gate-header"><i class="fa-solid fa-square-check"></i> GATE 3: KIỂM TRA RETENTION CONTRACT</div>
+        <div class="gate-item"><i class="fa-solid fa-check"></i> <span>Đầy đủ 6 thành phần: Unit, Cohort Entry, Return Event, Window, Threshold, Segment.</span></div>
+        <div class="gate-item"><i class="fa-solid fa-check"></i> <span>Return Event là Core Action thực tế, không dùng hành vi mở app (app_opened).</span></div>
+        <div class="gate-item"><i class="fa-solid fa-check"></i> <span>Window khớp chuẩn Weekly Cadence ở Phase 2.</span></div>
+      </div>
+    </section>
+
+    <!-- ==================== PHASE 4 ==================== -->
+    <section id="p4" class="phase-section">
+      <div class="phase-header">
+        <div class="phase-title-wrap">
+          <span class="phase-pill">Phase 4</span>
+          <h2 class="phase-title">Product Loop & Minimum Tracking Spec</h2>
+        </div>
+        <div class="time-badge"><i class="fa-regular fa-clock"></i> 15 phút</div>
+      </div>
+
+      <!-- Diagram -->
+      <div class="mermaid-box">
+        <pre class="mermaid">
+        graph TD
+          subgraph "VÒNG LẶP 1: CÁ NHÂN HÓA HỌC TẬP (Habit Loop)"
+            T1["1. TRIGGER<br/>• Bên trong: Lo lắng trước kỳ thi<br/>• Bên ngoài: Thông báo nhắc ôn"] --> A1["2. ACTION (Core Action)<br/>Làm bài Quiz 5 phút"]
+            A1 --> R1["3. REWARD (Giá trị cốt lõi)<br/>Biết điểm + Giải thích chi tiết"]
+            R1 --> I1["4. INVESTMENT<br/>Lưu câu sai vào 'Sổ tay lỗi'<br/>Tối ưu hóa đề lần sau"]
+            I1 -.->|"Tạo trigger ôn tập mới"| T1
+          end
+
+          subgraph "VÒNG LẶP 2: LAN TỎA NHÓM HỌC (Growth Loop)"
+            R1 ==>|"Đề hay & sát thực tế"| A2["5. SHARE ACTION<br/>Chia sẻ đề cho bạn cùng lớp"]
+            A2 --> T2["6. PEER TRIGGER<br/>Bạn bè nhận link & thi thử"]
+            T2 --> A3["7. PEER ACTION<br/>Làm bài & Xem Bảng xếp hạng"]
+            A3 --> I2["8. PEER INVESTMENT<br/>Upload thêm đề vào kho chung"]
+            I2 -.->|"Làm giàu kho đề chung"| T1
+          end
+        </pre>
+      </div>
+
+      <!-- Metric Hypothesis -->
+      <div class="highlight-card" style="border-left: 4px solid var(--primary);">
+        <div style="font-weight: 700; color: var(--primary-light); margin-bottom: 6px;"><i class="fa-solid fa-flask"></i> METRIC HYPOTHESIS (GIẢ THUYẾT VÒNG LẶP)</div>
+        <p style="font-style: italic; font-size: 0.95rem; color: #f1f5f9;">
+          "Nếu chúng ta triển khai tính năng <strong>'Chia sẻ bộ đề thi thử kèm Bảng xếp hạng nhóm' (Collaborative Quiz Loop)</strong>, thì tỷ lệ <strong>W2 Retention</strong> của sinh viên thuộc nhóm học tập sẽ cao hơn nhóm học đơn lẻ ít nhất <strong>30%</strong>, đồng thời chỉ số <strong>North Star Metric (WQQC)</strong> trung bình trên mỗi người dùng sẽ tăng từ <strong>2.2 lên 3.8 lượt/tuần</strong> trong vòng 60 ngày."
+        </p>
+      </div>
+
+      <!-- Tracking Spec Table -->
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>STT</th>
+              <th>Tên Event (<code>event_name</code>)</th>
+              <th>Trigger khi nào?</th>
+              <th>Parameters / Properties</th>
+              <th>Map về Metric nào?</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td><code>user_signed_up</code></td>
+              <td>Đăng ký tài khoản thành công</td>
+              <td><code>user_id, signup_method, university</code></td>
+              <td>Mẫu số cho <strong>Activation Rate</strong></td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td><code>document_uploaded</code></td>
+              <td>Upload tệp tài liệu thành công</td>
+              <td><code>user_id, doc_id, file_type, page_count</code></td>
+              <td><strong>Leading Indicator 1</strong> (D0 Upload)</td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td><code>quiz_generated</code></td>
+              <td>AI tạo bộ đề thi thành công</td>
+              <td><code>user_id, quiz_id, question_count</code></td>
+              <td>Đo năng lực và sẵn sàng của AI</td>
+            </tr>
+            <tr>
+              <td>4</td>
+              <td><code>quiz_started</code></td>
+              <td>Bấm "Bắt đầu làm bài"</td>
+              <td><code>user_id, quiz_id, source</code></td>
+              <td>Leading Indicator 2 & Mẫu số Drop-off</td>
+            </tr>
+            <tr>
+              <td>5</td>
+              <td><code>quiz_completed</code></td>
+              <td>Nộp bài và nhận kết quả</td>
+              <td><code>user_id, quiz_id, score_percent, is_qualified</code></td>
+              <td><span class="tag tag-success">CORE ACTION</span> $\rightarrow$ <strong>NSM, Retention, Activation</strong></td>
+            </tr>
+            <tr>
+              <td>6</td>
+              <td><code>quiz_shared</code></td>
+              <td>Bấm copy link/gửi cho bạn bè</td>
+              <td><code>user_id, quiz_id, platform</code></td>
+              <td>Đo lường <strong>Growth Loop (Viral)</strong></td>
+            </tr>
+            <tr>
+              <td>7</td>
+              <td><code>question_error_reported</code></td>
+              <td>Bấm báo lỗi câu hỏi AI</td>
+              <td><code>user_id, quiz_id, question_id, error_type</code></td>
+              <td><strong>Counter-Metric 2</strong> (Error Rate)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Gate 4 -->
+      <div class="gate-box">
+        <div class="gate-header"><i class="fa-solid fa-square-check"></i> GATE 4: KIỂM TRA TRACKING SPEC & LOOP</div>
+        <div class="gate-item"><i class="fa-solid fa-check"></i> <span>Mọi event đều map 1-1 về một chỉ số cụ thể trong hệ thống.</span></div>
+        <div class="gate-item"><i class="fa-solid fa-check"></i> <span>Có giả thuyết Metric Hypothesis định lượng rõ ràng.</span></div>
+      </div>
+    </section>
+
+    <!-- ==================== PHASE 5 ==================== -->
+    <section id="p5" class="phase-section">
+      <div class="phase-header">
+        <div class="phase-title-wrap">
+          <span class="phase-pill">Phase 5</span>
+          <h2 class="phase-title">Bảng Tự Soi Lỗi & AI Support Log</h2>
+        </div>
+        <div class="time-badge"><i class="fa-regular fa-clock"></i> 10 phút</div>
+      </div>
+
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>9 Lỗi kinh điển trong bài Product Metrics</th>
+              <th>Trạng thái</th>
+              <th>Minh chứng cụ thể trong bài làm</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1. Chọn core action vì dễ track hoặc chọn output hệ thống</td>
+              <td><span class="tag tag-success">Đã tránh</span></td>
+              <td>Chọn người dùng làm bài đạt $\ge 70\%$ (`quiz_completed`), không chọn `quiz_generated`.</td>
+            </tr>
+            <tr>
+              <td>2. Xem login / onboarding là activation</td>
+              <td><span class="tag tag-success">Đã tránh</span></td>
+              <td>Activation là hoàn thành bài quiz đầu tiên đạt điểm chuẩn $\le 48h$.</td>
+            </tr>
+            <tr>
+              <td>3. Ép frequency cao hơn nhu cầu thật (ép Daily)</td>
+              <td><span class="tag tag-success">Đã tránh</span></td>
+              <td>Chọn chuẩn <strong>Weekly Cadence</strong> theo lịch học đại học.</td>
+            </tr>
+            <tr>
+              <td>4. Dùng notification làm reason to return của loop</td>
+              <td><span class="tag tag-success">Đã tránh</span></td>
+              <td>Reason to return là nhu cầu thi cử và giải tỏa âu lo (Internal Trigger) & Sổ tay câu sai.</td>
+            </tr>
+            <tr>
+              <td>5. Dùng 1 metric cho mọi cadence (D7 cho nhịp tháng)</td>
+              <td><span class="tag tag-success">Đã tránh</span></td>
+              <td>Thiết lập Weekly Cohorts (W1, W2, W4, W8) khớp nhịp 7 ngày.</td>
+            </tr>
+            <tr>
+              <td>6. Viết D7 retention thiếu 6 thành phần</td>
+              <td><span class="tag tag-success">Đã tránh</span></td>
+              <td>Đầy đủ Unit, Cohort Entry, Return Event, Window, Threshold, Segment.</td>
+            </tr>
+            <tr>
+              <td>7. Track mọi click không map về metric nào</td>
+              <td><span class="tag tag-success">Đã tránh</span></td>
+              <td>Tối giản 7 events trọng tâm, map 1-1 vào từng metric.</td>
+            </tr>
+            <tr>
+              <td>8. Có metric nhưng không có event, trigger để tính</td>
+              <td><span class="tag tag-success">Đã tránh</span></td>
+              <td>Tracking spec quy định rõ trigger và parameters (`score_percent`, `is_qualified`).</td>
+            </tr>
+            <tr>
+              <td>9. Viết core action mơ hồ kiểu "sử dụng app"</td>
+              <td><span class="tag tag-success">Đã tránh</span></td>
+              <td>Định lượng rõ ràng: Làm bài $\ge 5$ câu trên tài liệu đạt $\ge 70\%$.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card" style="margin-top: 1.5rem;">
+        <div class="card-title"><i class="fa-solid fa-robot"></i> AI SUPPORT LOG (NHẬT KÝ SỬ DỤNG AI)</div>
+        <p style="font-size: 0.88rem; color: var(--text-muted);">
+          • <strong>AI Support:</strong> Sử dụng AI để brainstorm các biến số Counter-metric và định dạng tài liệu.<br/>
+          • <strong>PM Decision:</strong> Tác giả tự lựa chọn use case, bảo vệ Core Action (Quiz Session $\ge 70\%$), tự chốt Weekly Cadence và viết giả thuyết Metric Hypothesis.
+        </p>
+      </div>
+    </section>
+
+  </div>
+
+  <footer>
+    <p>© 2026 <strong>StudyMate AI</strong> · Product Metrics & Retention Framework · Báo cáo bài Lab Day 20</p>
+    <p style="margin-top: 4px; font-size: 0.8rem; color: #64748b;">Học viên: Nguyễn Thị Minh Khánh (2A202602546)</p>
+  </footer>
+
+</body>
+</html>
